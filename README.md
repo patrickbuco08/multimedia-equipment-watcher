@@ -1,318 +1,175 @@
 # 📹 Multimedia Equipment Watcher
 
-A simple Grade 12 thesis project for managing multimedia equipment borrowing system. Built with Native PHP, HTML, and CSS (no frameworks).
+A simple Grade 12 thesis project for managing a multimedia equipment borrowing system.
 
-# 🚀 Quick Setup Guide - Multimedia Equipment Watcher
+Built with **native PHP**, **MySQL**, and **HTML/CSS** (no full-stack frameworks). TailwindCSS is loaded via CDN for UI styling.
 
-This guide will help you set up the Multimedia Equipment Watcher system in just a few minutes.
+---
 
-## ⚡ Quick Start (5 Minutes)
+## ✨ Features
 
-### Step 1: Install Prerequisites
+- **Equipment inventory** (add, edit, delete, list)
+- **Borrowing workflows** with due dates and statuses
+- **Overdue tracking** and email log records
+- **Damage / lost reports** for equipment
+- **Role-based access** for Admin and Staff
+- **Admin dashboard** for staff management and approvals
+
+---
+
+## 🧰 Tech Stack
+
+- PHP 8.2+
+- MySQL 8.0+
+- TailwindCSS (CDN)
+- Native HTML + CSS + a bit of JavaScript
+
+---
+
+## ✅ Requirements
 
 Make sure you have:
-- ✅ XAMPP, MAMP, or WAMP installed
-- ✅ PHP 7.4 or higher
-- ✅ MySQL 5.7 or higher
 
-**Download XAMPP (Recommended):**
-- Windows: https://www.apachefriends.org/download.html
-- Mac: https://www.apachefriends.org/download.html
-- Linux: https://www.apachefriends.org/download.html
+- XAMPP (or similar stack providing PHP + MySQL)
+- PHP 8.2 or higher
+- MySQL 8.0 or higher
 
-### Step 2: Start Your Server
+> You can use XAMPP only for MySQL and still run the app via PHP's built-in server.
 
-#### Using XAMPP:
-1. Open XAMPP Control Panel
-2. Click **Start** for Apache
-3. Click **Start** for MySQL
-4. Verify both are running (green status)
+---
 
-### Step 3: Create Database
+## 🚀 Quick Start
 
-**Option A: Using phpMyAdmin (Easiest)**
-1. Open browser and go to: `http://localhost/phpmyadmin`
-2. Click **Import** tab
-3. Click **Choose File** and select: `setup/install.sql`
-4. Click **Go** button at the bottom
-5. Wait for success message
+### 1. Clone or Download the Project
 
-**Option B: Using Command Line**
 ```bash
-# Windows (in XAMPP directory)
+git clone https://github.com/your-username/multimedia-equipment-watcher.git
+cd multimedia-equipment-watcher
+```
+
+Or download the ZIP from GitHub and extract it.
+
+### 2. Start MySQL (XAMPP)
+
+1. Open **XAMPP Control Panel**
+2. Click **Start** for **MySQL** (Apache is optional if you use PHP's built-in server)
+
+### 3. Create / Import the Database (First Install)
+
+The database schema and sample data live in `setup/install.sql`.
+
+> ⚠️ This script contains `DROP DATABASE IF EXISTS multimedia_equipment_watcher;` and will **recreate the database from scratch**. Do not run on a production database without backups.
+
+#### Option A: Using phpMyAdmin (Easiest)
+
+1. Open your browser and go to `http://localhost/phpmyadmin`
+2. Click the **Import** tab
+3. Click **Choose File** and select: `setup/install.sql`
+4. Click **Go** at the bottom
+5. Wait for the success message
+
+#### Option B: Using Command Line
+
+```bash
+# Windows (inside XAMPP's MySQL bin directory)
+cd C:\xampp\mysql\bin
+mysql -u root -p < C:\path\to\multimedia-equipment-watcher\setup\install.sql
+
+# Mac/Linux (from anywhere)
+mysql -u root -p < /path/to/multimedia-equipment-watcher/setup/install.sql
+
+or
+
+mysql -u root -p
+SOURCE /path/to/multimedia-equipment-watcher/setup/install.sql
+```
+
+This will create (or recreate) the `multimedia_equipment_watcher` database with tables and sample data.
+
+### 4. Configure Database Connection (Optional Override)
+
+By default, the app expects:
+
+```php
+DB_HOST = 127.0.0.1
+DB_PORT = 3306
+DB_USER = root
+DB_PASS = (empty)
+DB_NAME = multimedia_equipment_watcher
+```
+
+You can override these via environment variables (see `ENV_SETUP.md`) or by adjusting your local MySQL configuration.
+
+### 5. Run the PHP Built-in Server
+
+From the project root:
+
+```bash
+php -S localhost:8000
+```
+
+### Step 6: Copy the Example File
+
+Copy `.env.example` to create your local environment file:
+
+```bash
+cp .env.example .env.local
+```
+
+### 7. Access the Application
+
+Open your browser and navigate to:
+
+```text
+http://localhost:8000/
+```
+
+---
+
+## 🔄 Reset / Re-import Database (Fresh Install)
+
+If `setup/install.sql` changes (for example, you add new tables or sample data) and you want a **fresh database**, you can simply re-run `install.sql`.
+
+> ⚠️ **WARNING:** This will **delete all existing data** in `multimedia_equipment_watcher` and recreate everything from scratch.
+
+### Option A: Fresh Import via phpMyAdmin
+
+1. (Optional but recommended) **Backup current database**:
+   - In phpMyAdmin, select `multimedia_equipment_watcher`
+   - Go to the **Export** tab and save a copy
+2. Go to `http://localhost/phpmyadmin`
+3. Click the **Import** tab
+4. Click **Choose File** and select the updated `setup/install.sql`
+5. Make sure the correct database or no database is selected (the script itself drops/creates the DB)
+6. Click **Go**
+7. After it finishes, you now have a **fresh database** with the latest schema and sample data
+
+### Option B: Fresh Import via Command Line
+
+```bash
+# Windows
 cd C:\xampp\mysql\bin
 mysql -u root -p < C:\path\to\multimedia-equipment-watcher\setup\install.sql
 
 # Mac/Linux
-mysql -u root -p
-SOURCE /Users/johnpatrickbuco/Desktop/projects/multimedia-equipment-watcher/setup/install.sql;
+mysql -u root -p < /path/to/multimedia-equipment-watcher/setup/install.sql
 ```
 
-### Step 4: Copy Project Files
+Every time you run this command, MySQL will:
 
-Copy the entire `multimedia-equipment-watcher` folder to your web server directory:
+1. Drop the `multimedia_equipment_watcher` database (if it exists)
+2. Recreate it
+3. Recreate all tables
+4. Re-insert the sample data defined in `install.sql`
 
-**XAMPP:**
-- Windows: `C:\xampp\htdocs\`
-- Mac: `/Applications/XAMPP/htdocs/`
-- Linux: `/opt/lampp/htdocs/`
-
-**MAMP:**
-- Mac: `/Applications/MAMP/htdocs/`
-
-**WAMP:**
-- Windows: `C:\wamp64\www\`
-
-** Run PHP's Built-in server
- - php -S localhost:8000
-
-### Step 5: Access the System
-
-Open your web browser and go to:
-```
-http://localhost/multimedia-equipment-watcher/
-```
-
-### Step 6: Login
-
-Use the default admin account:
-```
-Email: admin@example.com
-Password: admin123
-```
-
-**🎉 Congratulations! Your system is now ready to use!**
+This is equivalent to a **full database reset**.
 
 ---
 
-## 📋 Detailed Setup Instructions
+## 📝 Notes
 
-### Database Configuration
-
-If your MySQL setup is different from the default, update `config/database.php`:
-
-```php
-define('DB_HOST', '127.0.0.1');     // Your MySQL host
-define('DB_PORT', '3306');           // Your MySQL port
-define('DB_USER', 'root');           // Your MySQL username
-define('DB_PASS', '');               // Your MySQL password (empty for XAMPP)
-define('DB_NAME', 'multimedia_equipment_watcher');
-```
-
-### Verify Installation
-
-After setup, verify everything works:
-
-1. ✅ Can you login with admin@example.com?
-2. ✅ Can you see the dashboard with statistics?
-3. ✅ Can you navigate to Equipment page?
-4. ✅ Can you see sample equipment data?
-
-If any of these fail, check:
-- MySQL is running
-- Database was imported successfully
-- Files are in the correct directory
-- PHP is enabled in your web server
-
----
-
-## 🔧 Troubleshooting
-
-### Issue: "Connection failed" error
-
-**Solution:**
-1. Verify MySQL is running in XAMPP/MAMP
-2. Check database credentials in `config/database.php`
-3. Ensure database `multimedia_equipment_watcher` exists
-
-### Issue: "404 Not Found" when accessing pages
-
-**Solution:**
-1. Verify project is in correct directory (htdocs/www)
-2. Check the URL: `http://localhost/multimedia-equipment-watcher/`
-3. Restart Apache in XAMPP
-
-### Issue: "Blank white page"
-
-**Solution:**
-1. Enable error display in PHP:
-   - Open XAMPP Control Panel
-   - Click **Config** for Apache
-   - Select `php.ini`
-   - Find `display_errors` and set to `On`
-   - Restart Apache
-2. Check PHP error logs
-
-### Issue: CSS/Styles not loading
-
-**Solution:**
-1. Verify `assets` folder exists in your project
-2. Clear browser cache (Ctrl+F5)
-3. Check browser console for errors
-
-### Issue: Cannot import database
-
-**Solution:**
-1. Open `setup/install.sql` in a text editor
-2. Copy all contents
-3. In phpMyAdmin, go to SQL tab
-4. Paste and click Go
-5. If still fails, create database manually first:
-   ```sql
-   CREATE DATABASE multimedia_equipment_watcher;
-   USE multimedia_equipment_watcher;
-   ```
-   Then run the import again
-
----
-
-## 📧 Email Setup (Optional)
-
-The email functionality is optional but recommended for production use.
-
-### Using Mailtrap (Testing)
-
-1. Go to https://mailtrap.io/ and sign up (free)
-2. Create a new inbox
-3. Copy your SMTP credentials
-4. Edit `email/send_overdue_notifications.php`
-5. Update these lines:
-   ```php
-   define('SMTP_USERNAME', 'your_username_here');
-   define('SMTP_PASSWORD', 'your_password_here');
-   ```
-
-### Testing Email Notifications
-
-1. Make sure you have overdue transactions in the database
-2. Visit: `http://localhost/multimedia-equipment-watcher/email/send_overdue_notifications.php`
-3. Check Mailtrap inbox for emails
-
----
-
-## 🎓 Default Test Accounts
-
-The system comes with pre-configured test accounts:
-
-### Admin Account
-```
-Email: admin@example.com
-Password: admin123
-Access: Full system access including staff management and logs
-```
-
-### Staff Accounts
-```
-Email: john.staff@example.com
-Password: admin123
-Access: Equipment and borrowing management
-
-Email: jane.staff@example.com
-Password: admin123
-Access: Equipment and borrowing management
-```
-
-### Sample Data Included
-
-- ✅ 5 sample equipment items
-- ✅ 3 sample borrowing transactions
-- ✅ 1 overdue transaction (for testing)
-- ✅ Sample email logs
-
----
-
-## 🔐 Security Recommendations
-
-### After Installation
-
-1. **Change default passwords immediately:**
-   - Login as admin
-   - Go to Staff menu
-   - Edit each user and change password
-
-2. **Remove or protect setup directory:**
-   ```bash
-   # Option 1: Delete it
-   rm -rf setup/
-   
-   # Option 2: Rename it
-   mv setup/ setup_backup/
-   ```
-
-3. **Update database credentials:**
-   - Use a strong password for MySQL root user
-   - Create a dedicated database user with limited privileges
-
-### For Production Use
-
-1. **Set PHP error display to off:**
-   ```php
-   // In php.ini
-   display_errors = Off
-   log_errors = On
-   ```
-
-2. **Enable HTTPS:**
-   - Get SSL certificate (Let's Encrypt is free)
-   - Force HTTPS redirects
-
-3. **Regular backups:**
-   - Backup database daily
-   - Keep multiple backup copies
-
----
-
-## 📱 Mobile Testing
-
-The system is responsive and works on mobile devices:
-
-1. Find your computer's IP address:
-   ```bash
-   # Windows
-   ipconfig
-   
-   # Mac/Linux
-   ifconfig
-   ```
-
-2. On your mobile device, connect to same WiFi
-3. Access: `http://YOUR_IP_ADDRESS/multimedia-equipment-watcher/`
-
----
-
-## 🎯 Next Steps
-
-After successful installation:
-
-1. ✅ Login and explore the dashboard
-2. ✅ Add your own equipment items
-3. ✅ Create test borrowing transactions
-4. ✅ Test the return functionality
-5. ✅ Try the overdue notifications
-6. ✅ Add more staff accounts if needed
-7. ✅ Customize the system colors (edit `assets/css/style.css`)
-
----
-
-## 💡 Tips for Success
-
-- **Start simple**: Begin with a few equipment items
-- **Test everything**: Try all features before going live
-- **Train users**: Show staff how to use the system
-- **Regular maintenance**: Check overdue items daily
-- **Keep backups**: Export database regularly
-
----
-
-## 📞 Need Help?
-
-If you encounter any issues:
-
-1. Check this setup guide first
-2. Review the main README.md file
-3. Check PHP and MySQL error logs
-4. Verify all files are in place
-5. Test with different browsers
+- For environment variable setup and SMTP configuration, see `ENV_SETUP.md`.
+- For more detailed setup and troubleshooting, see `SETUP_GUIDE.md`.
 
 ---
 
