@@ -9,6 +9,7 @@
 require_once '../config/database.php';
 require_once '../vendor/autoload.php';
 require_once '../includes/email_template.php';
+require_once '../config/mail.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 
@@ -64,17 +65,8 @@ foreach ($overdueTransactions as $transaction) {
         $htmlBody = getEmailTemplate('Overdue Equipment Reminder', $content);
         
         // Send email
-        $phpmailer = new PHPMailer();
-        $phpmailer->isSMTP();
-        $phpmailer->Host = 'sandbox.smtp.mailtrap.io';
-        $phpmailer->SMTPAuth = true;
-        $phpmailer->Port = 2525;
-        $phpmailer->Username = '200d7dede3dd55';
-        $phpmailer->Password = '6283e0434900b9';
-        
-        $phpmailer->setFrom('noreply@oct.edu.ph', 'Multimedia Equipment Watcher');
+        $phpmailer = getMailer();
         $phpmailer->addAddress($transaction['borrower_email']);
-        $phpmailer->isHTML(true);
         
         $phpmailer->Subject = 'Overdue Equipment Reminder - ' . $transaction['equipment_name'];
         $phpmailer->Body = $htmlBody;

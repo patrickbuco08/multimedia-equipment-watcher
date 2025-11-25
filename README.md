@@ -2,278 +2,318 @@
 
 A simple Grade 12 thesis project for managing multimedia equipment borrowing system. Built with Native PHP, HTML, and CSS (no frameworks).
 
-## 🎯 Features
+# 🚀 Quick Setup Guide - Multimedia Equipment Watcher
 
-### User Roles
-- **Admin**: Full access to all features including staff management and logs
-- **Staff**: Can manage equipment, create/return borrowing transactions, and view overdue items
+This guide will help you set up the Multimedia Equipment Watcher system in just a few minutes.
 
-### Core Functionality
-1. **Equipment Management**
-   - Add, edit, and delete equipment
-   - Track equipment status (available, borrowed, damaged, lost)
-   - Search and filter equipment
+## ⚡ Quick Start (5 Minutes)
 
-2. **Borrowing System**
-   - Create borrow transactions with borrower details
-   - Automatic equipment status updates
-   - Track due dates and return dates
-   - Manual borrower name and email entry (no user accounts for borrowers)
+### Step 1: Install Prerequisites
 
-3. **Overdue Detection**
-   - Automatic detection of overdue items
-   - Days overdue calculation
-   - Email notification system
+Make sure you have:
+- ✅ XAMPP, MAMP, or WAMP installed
+- ✅ PHP 7.4 or higher
+- ✅ MySQL 5.7 or higher
 
-4. **Staff Management** (Admin Only)
-   - Add, edit, and delete staff accounts
-   - Manage user roles
+**Download XAMPP (Recommended):**
+- Windows: https://www.apachefriends.org/download.html
+- Mac: https://www.apachefriends.org/download.html
+- Linux: https://www.apachefriends.org/download.html
 
-5. **Email Logs** (Admin Only)
-   - View all sent email notifications
-   - Track success/failure status
+### Step 2: Start Your Server
 
-## 🛠 Installation
+#### Using XAMPP:
+1. Open XAMPP Control Panel
+2. Click **Start** for Apache
+3. Click **Start** for MySQL
+4. Verify both are running (green status)
 
-### Prerequisites
-- PHP 7.4 or higher
-- MySQL 5.7 or higher
-- Apache/Nginx web server
-- XAMPP/MAMP/WAMP (recommended for local development)
+### Step 3: Create Database
 
-### Step 1: Setup Database
+**Option A: Using phpMyAdmin (Easiest)**
+1. Open browser and go to: `http://localhost/phpmyadmin`
+2. Click **Import** tab
+3. Click **Choose File** and select: `setup/install.sql`
+4. Click **Go** button at the bottom
+5. Wait for success message
 
-1. Start your MySQL server
-2. Import the database schema:
-   ```bash
-   mysql -u root -p < setup/install.sql
-   ```
-   Or manually execute the SQL file in phpMyAdmin/MySQL Workbench
-
-### Step 2: Configure Database Connection
-
-The database configuration is already set in `config/database.php` with the following credentials:
-```php
-Host: 127.0.0.1
-Port: 3306
-Username: root
-Password: (empty)
-Database: multimedia_equipment_watcher
-```
-
-If your MySQL setup is different, update the constants in `config/database.php`.
-
-### Step 3: Setup Web Server
-
-#### Using XAMPP/MAMP/WAMP
-1. Copy the project folder to your web server directory:
-   - XAMPP: `C:\xampp\htdocs\` (Windows) or `/Applications/XAMPP/htdocs/` (Mac)
-   - MAMP: `/Applications/MAMP/htdocs/`
-   - WAMP: `C:\wamp64\www\`
-
-2. Access the application:
-   ```
-   http://localhost/multimedia-equipment-watcher/
-   ```
-
-#### Using PHP Built-in Server
+**Option B: Using Command Line**
 ```bash
-cd /path/to/multimedia-equipment-watcher
-php -S localhost:8000
-```
-Then access: `http://localhost:8000/`
+# Windows (in XAMPP directory)
+cd C:\xampp\mysql\bin
+mysql -u root -p < C:\path\to\multimedia-equipment-watcher\setup\install.sql
 
-### Step 4: Login
-
-Default accounts are already created in the database:
-
-**Admin Account:**
-- Email: `admin@example.com`
-- Password: `admin123`
-
-**Staff Accounts:**
-- Email: `john.staff@example.com` / Password: `admin123`
-- Email: `jane.staff@example.com` / Password: `admin123`
-
-## 📧 Email Configuration (Mailtrap)
-
-The system includes automated email notifications for overdue equipment.
-
-### Setup Mailtrap
-
-1. Sign up for free at [https://mailtrap.io/](https://mailtrap.io/)
-2. Create a new inbox
-3. Get your SMTP credentials
-4. Update the configuration in `/email/send_overdue_notifications.php`:
-   ```php
-   define('SMTP_HOST', 'sandbox.smtp.mailtrap.io');
-   define('SMTP_PORT', 2525);
-   define('SMTP_USERNAME', 'your_mailtrap_username');
-   define('SMTP_PASSWORD', 'your_mailtrap_password');
-   ```
-
-### Sending Email Notifications
-
-**Manual:**
-Visit: `http://localhost/multimedia-equipment-watcher/email/send_overdue_notifications.php`
-
-**Via Cron (Linux/Mac):**
-```bash
-# Run daily at 9 AM
-0 9 * * * /usr/bin/php /path/to/multimedia-equipment-watcher/email/send_overdue_notifications.php
+# Mac/Linux
+mysql -u root -p
+SOURCE /Users/johnpatrickbuco/Desktop/projects/multimedia-equipment-watcher/setup/install.sql;
 ```
 
-**Via Task Scheduler (Windows):**
-1. Open Task Scheduler
-2. Create Basic Task
-3. Set trigger (e.g., Daily at 9:00 AM)
-4. Action: Start a program
-5. Program: `C:\xampp\php\php.exe`
-6. Arguments: `C:\xampp\htdocs\multimedia-equipment-watcher\email\send_overdue_notifications.php`
+### Step 4: Copy Project Files
 
-### Production Email Setup
+Copy the entire `multimedia-equipment-watcher` folder to your web server directory:
 
-For production use with real email delivery:
+**XAMPP:**
+- Windows: `C:\xampp\htdocs\`
+- Mac: `/Applications/XAMPP/htdocs/`
+- Linux: `/opt/lampp/htdocs/`
 
-1. Install PHPMailer:
-   ```bash
-   composer require phpmailer/phpmailer
-   ```
+**MAMP:**
+- Mac: `/Applications/MAMP/htdocs/`
 
-2. Uncomment and configure the PHPMailer code in `/email/send_overdue_notifications.php`
+**WAMP:**
+- Windows: `C:\wamp64\www\`
 
-3. Use a real SMTP service (Gmail, SendGrid, Mailgun, etc.)
+** Run PHP's Built-in server
+ - php -S localhost:8000
 
-## 🎨 Design Theme
+### Step 5: Access the System
 
-- **Primary Colors**: White + Green (#2ecc71)
-- **Secondary Color**: Gray (#4b4b4b)
-- **Design Style**: Clean, modern, minimalistic
-- **Optimized for**: 1366×768 laptop screens (responsive)
-
-## 📁 Project Structure
-
+Open your web browser and go to:
 ```
-multimedia-equipment-watcher/
-├── assets/
-│   └── css/
-│       └── style.css          # Main stylesheet
-├── borrowing/
-│   ├── add.php                # Create borrow transaction
-│   ├── list.php               # View all transactions
-│   └── return.php             # Mark as returned
-├── config/
-│   └── database.php           # Database configuration
-├── email/
-│   └── send_overdue_notifications.php  # Email script
-├── equipment/
-│   ├── add.php                # Add equipment
-│   ├── delete.php             # Delete equipment
-│   ├── edit.php               # Edit equipment
-│   └── list.php               # View all equipment
-├── includes/
-│   ├── footer.php             # Footer template
-│   └── header.php             # Header with navigation
-├── logs/
-│   └── view.php               # View email logs (admin)
-├── overdue/
-│   └── list.php               # View overdue items
-├── setup/
-│   └── install.sql            # Database schema and sample data
-├── staff/
-│   ├── add.php                # Add staff (admin)
-│   ├── delete.php             # Delete staff (admin)
-│   ├── edit.php               # Edit staff (admin)
-│   └── list.php               # View all staff (admin)
-├── dashboard.php              # Main dashboard
-├── index.php                  # Login page
-├── logout.php                 # Logout handler
-└── README.md                  # This file
+http://localhost/multimedia-equipment-watcher/
 ```
 
-## 🗄 Database Schema
+### Step 6: Login
 
-### users
-- User accounts (admin and staff)
-- Hashed passwords using bcrypt
+Use the default admin account:
+```
+Email: admin@example.com
+Password: admin123
+```
 
-### equipment
-- Equipment inventory
-- Status tracking (available, borrowed, damaged, lost)
-
-### borrowing_transactions
-- Borrow and return records
-- Links equipment to borrower
-- Tracks dates and status
-
-### email_logs
-- Email notification history
-- Success/failure tracking
-
-## 🔒 Security Features
-
-- Password hashing with PHP's `password_hash()`
-- SQL injection prevention using prepared statements
-- Session-based authentication
-- Role-based access control (RBAC)
-- CSRF protection ready (can be enhanced)
-
-## 📝 Usage Guide
-
-### Adding Equipment
-1. Navigate to **Equipment** menu
-2. Click **+ Add Equipment**
-3. Fill in equipment details
-4. Click **Add Equipment**
-
-### Creating Borrow Transaction
-1. Navigate to **Borrowing** menu
-2. Click **+ New Borrow**
-3. Select available equipment
-4. Enter borrower name and email (typed manually)
-5. Set borrow date (defaults to today)
-6. Set due date
-7. Click **Create Transaction**
-
-### Returning Equipment
-1. Navigate to **Borrowing** menu
-2. Find the transaction
-3. Click **Return** button
-4. Equipment status automatically updates to "available"
-
-### Viewing Overdue Items
-1. Navigate to **Overdue** menu
-2. View all overdue transactions
-3. Click **Send Email Notifications** to notify borrowers
-
-### Managing Staff (Admin Only)
-1. Navigate to **Staff** menu
-2. Add, edit, or delete staff accounts
-3. Assign roles (admin or staff)
-
-### Viewing Email Logs (Admin Only)
-1. Navigate to **Logs** menu
-2. View all sent email notifications
-3. Check success/failure status
-
-## 🚀 Future Enhancements
-
-- QR code generation for equipment
-- Barcode scanning for quick checkout
-- Advanced reporting and analytics
-- Mobile app integration
-- Real-time notifications
-- Equipment maintenance tracking
-- Multi-branch support
-
-## 📄 License
-
-This is a Grade 12 thesis project for educational purposes.
-
-## 👨‍💻 Support
-
-For questions or issues, please contact the development team.
+**🎉 Congratulations! Your system is now ready to use!**
 
 ---
 
-**Multimedia Equipment Watcher** - Making equipment management simple and efficient! 📹✨
+## 📋 Detailed Setup Instructions
+
+### Database Configuration
+
+If your MySQL setup is different from the default, update `config/database.php`:
+
+```php
+define('DB_HOST', '127.0.0.1');     // Your MySQL host
+define('DB_PORT', '3306');           // Your MySQL port
+define('DB_USER', 'root');           // Your MySQL username
+define('DB_PASS', '');               // Your MySQL password (empty for XAMPP)
+define('DB_NAME', 'multimedia_equipment_watcher');
+```
+
+### Verify Installation
+
+After setup, verify everything works:
+
+1. ✅ Can you login with admin@example.com?
+2. ✅ Can you see the dashboard with statistics?
+3. ✅ Can you navigate to Equipment page?
+4. ✅ Can you see sample equipment data?
+
+If any of these fail, check:
+- MySQL is running
+- Database was imported successfully
+- Files are in the correct directory
+- PHP is enabled in your web server
+
+---
+
+## 🔧 Troubleshooting
+
+### Issue: "Connection failed" error
+
+**Solution:**
+1. Verify MySQL is running in XAMPP/MAMP
+2. Check database credentials in `config/database.php`
+3. Ensure database `multimedia_equipment_watcher` exists
+
+### Issue: "404 Not Found" when accessing pages
+
+**Solution:**
+1. Verify project is in correct directory (htdocs/www)
+2. Check the URL: `http://localhost/multimedia-equipment-watcher/`
+3. Restart Apache in XAMPP
+
+### Issue: "Blank white page"
+
+**Solution:**
+1. Enable error display in PHP:
+   - Open XAMPP Control Panel
+   - Click **Config** for Apache
+   - Select `php.ini`
+   - Find `display_errors` and set to `On`
+   - Restart Apache
+2. Check PHP error logs
+
+### Issue: CSS/Styles not loading
+
+**Solution:**
+1. Verify `assets` folder exists in your project
+2. Clear browser cache (Ctrl+F5)
+3. Check browser console for errors
+
+### Issue: Cannot import database
+
+**Solution:**
+1. Open `setup/install.sql` in a text editor
+2. Copy all contents
+3. In phpMyAdmin, go to SQL tab
+4. Paste and click Go
+5. If still fails, create database manually first:
+   ```sql
+   CREATE DATABASE multimedia_equipment_watcher;
+   USE multimedia_equipment_watcher;
+   ```
+   Then run the import again
+
+---
+
+## 📧 Email Setup (Optional)
+
+The email functionality is optional but recommended for production use.
+
+### Using Mailtrap (Testing)
+
+1. Go to https://mailtrap.io/ and sign up (free)
+2. Create a new inbox
+3. Copy your SMTP credentials
+4. Edit `email/send_overdue_notifications.php`
+5. Update these lines:
+   ```php
+   define('SMTP_USERNAME', 'your_username_here');
+   define('SMTP_PASSWORD', 'your_password_here');
+   ```
+
+### Testing Email Notifications
+
+1. Make sure you have overdue transactions in the database
+2. Visit: `http://localhost/multimedia-equipment-watcher/email/send_overdue_notifications.php`
+3. Check Mailtrap inbox for emails
+
+---
+
+## 🎓 Default Test Accounts
+
+The system comes with pre-configured test accounts:
+
+### Admin Account
+```
+Email: admin@example.com
+Password: admin123
+Access: Full system access including staff management and logs
+```
+
+### Staff Accounts
+```
+Email: john.staff@example.com
+Password: admin123
+Access: Equipment and borrowing management
+
+Email: jane.staff@example.com
+Password: admin123
+Access: Equipment and borrowing management
+```
+
+### Sample Data Included
+
+- ✅ 5 sample equipment items
+- ✅ 3 sample borrowing transactions
+- ✅ 1 overdue transaction (for testing)
+- ✅ Sample email logs
+
+---
+
+## 🔐 Security Recommendations
+
+### After Installation
+
+1. **Change default passwords immediately:**
+   - Login as admin
+   - Go to Staff menu
+   - Edit each user and change password
+
+2. **Remove or protect setup directory:**
+   ```bash
+   # Option 1: Delete it
+   rm -rf setup/
+   
+   # Option 2: Rename it
+   mv setup/ setup_backup/
+   ```
+
+3. **Update database credentials:**
+   - Use a strong password for MySQL root user
+   - Create a dedicated database user with limited privileges
+
+### For Production Use
+
+1. **Set PHP error display to off:**
+   ```php
+   // In php.ini
+   display_errors = Off
+   log_errors = On
+   ```
+
+2. **Enable HTTPS:**
+   - Get SSL certificate (Let's Encrypt is free)
+   - Force HTTPS redirects
+
+3. **Regular backups:**
+   - Backup database daily
+   - Keep multiple backup copies
+
+---
+
+## 📱 Mobile Testing
+
+The system is responsive and works on mobile devices:
+
+1. Find your computer's IP address:
+   ```bash
+   # Windows
+   ipconfig
+   
+   # Mac/Linux
+   ifconfig
+   ```
+
+2. On your mobile device, connect to same WiFi
+3. Access: `http://YOUR_IP_ADDRESS/multimedia-equipment-watcher/`
+
+---
+
+## 🎯 Next Steps
+
+After successful installation:
+
+1. ✅ Login and explore the dashboard
+2. ✅ Add your own equipment items
+3. ✅ Create test borrowing transactions
+4. ✅ Test the return functionality
+5. ✅ Try the overdue notifications
+6. ✅ Add more staff accounts if needed
+7. ✅ Customize the system colors (edit `assets/css/style.css`)
+
+---
+
+## 💡 Tips for Success
+
+- **Start simple**: Begin with a few equipment items
+- **Test everything**: Try all features before going live
+- **Train users**: Show staff how to use the system
+- **Regular maintenance**: Check overdue items daily
+- **Keep backups**: Export database regularly
+
+---
+
+## 📞 Need Help?
+
+If you encounter any issues:
+
+1. Check this setup guide first
+2. Review the main README.md file
+3. Check PHP and MySQL error logs
+4. Verify all files are in place
+5. Test with different browsers
+
+---
+
+**Happy Equipment Tracking! 📹✨**

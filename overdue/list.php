@@ -28,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['notify_id'])) {
         if ($transaction) {
             require_once '../vendor/autoload.php';
             require_once '../includes/email_template.php';
+            require_once '../config/mail.php';
             
             $days_overdue = (new DateTime())->diff(new DateTime($transaction['due_date']))->days;
             
@@ -59,17 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['notify_id'])) {
             
             $htmlBody = getEmailTemplate('Overdue Equipment Reminder', $content);
             
-            $phpmailer = new PHPMailer();
-            $phpmailer->isSMTP();
-            $phpmailer->Host = 'sandbox.smtp.mailtrap.io';
-            $phpmailer->SMTPAuth = true;
-            $phpmailer->Port = 2525;
-            $phpmailer->Username = '200d7dede3dd55';
-            $phpmailer->Password = '6283e0434900b9';
-            
-            $phpmailer->setFrom('noreply@oct.edu.ph', 'Multimedia Equipment Watcher');
+            $phpmailer = getMailer();
             $phpmailer->addAddress($transaction['borrower_email']);
-            $phpmailer->isHTML(true);
             
             $phpmailer->Subject = 'Overdue Equipment Reminder - ' . $transaction['equipment_name'];
             $phpmailer->Body = $htmlBody;

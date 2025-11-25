@@ -20,9 +20,10 @@ function sendAdminNotification($pdo, $transaction_id, $adminUsers) {
         
         if (!$transaction) return false;
         
-        // Import PHPMailer and email template
+        // Import PHPMailer, email template, and mail config
         require_once '../vendor/autoload.php';
         require_once '../includes/email_template.php';
+        require_once '../config/mail.php';
         
         // Build email content
         $content = '<h2 style="margin: 0 0 20px 0; color: #212529; font-size: 20px;">New Equipment Borrow Request</h2>
@@ -52,17 +53,8 @@ function sendAdminNotification($pdo, $transaction_id, $adminUsers) {
         $htmlBody = getEmailTemplate('New Borrow Request', $content);
         
         foreach ($adminUsers as $admin) {
-            $phpmailer = new PHPMailer();
-            $phpmailer->isSMTP();
-            $phpmailer->Host = 'sandbox.smtp.mailtrap.io';
-            $phpmailer->SMTPAuth = true;
-            $phpmailer->Port = 2525;
-            $phpmailer->Username = '200d7dede3dd55';
-            $phpmailer->Password = '6283e0434900b9';
-            
-            $phpmailer->setFrom('noreply@oct.edu.ph', 'Multimedia Equipment Watcher');
+            $phpmailer = getMailer();
             $phpmailer->addAddress($admin['email']);
-            $phpmailer->isHTML(true);
             
             $phpmailer->Subject = 'New Equipment Borrow Request - ' . $transaction['equipment_name'];
             $phpmailer->Body = $htmlBody;
@@ -143,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             $success = 'Borrow transaction created successfully! Admin has been notified.';
 
-            header('Location: staff-dashboard.php');
+            header('Location: ../staff-dashboard.php');
             exit;
             
             // Clear form

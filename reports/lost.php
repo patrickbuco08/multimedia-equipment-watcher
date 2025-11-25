@@ -88,6 +88,7 @@ function sendReportNotification($pdo, $report_id, $report_type, $adminUsers) {
         
         require_once '../vendor/autoload.php';
         require_once '../includes/email_template.php';
+        require_once '../config/mail.php';
         
         $type_label = ucfirst($report_type);
         $icon = $report_type === 'damage' ? '&#128295;' : '&#128269;';
@@ -126,17 +127,8 @@ function sendReportNotification($pdo, $report_id, $report_type, $adminUsers) {
         $htmlBody = getEmailTemplate('Equipment ' . $type_label . ' Report', $content);
         
         foreach ($adminUsers as $admin) {
-            $phpmailer = new PHPMailer();
-            $phpmailer->isSMTP();
-            $phpmailer->Host = 'sandbox.smtp.mailtrap.io';
-            $phpmailer->SMTPAuth = true;
-            $phpmailer->Port = 2525;
-            $phpmailer->Username = '200d7dede3dd55';
-            $phpmailer->Password = '6283e0434900b9';
-            
-            $phpmailer->setFrom('noreply@oct.edu.ph', 'Multimedia Equipment Watcher');
+            $phpmailer = getMailer();
             $phpmailer->addAddress($admin['email']);
-            $phpmailer->isHTML(true);
             
             $phpmailer->Subject = 'Equipment ' . $type_label . ' Report - ' . $report['equipment_name'];
             $phpmailer->Body = $htmlBody;
