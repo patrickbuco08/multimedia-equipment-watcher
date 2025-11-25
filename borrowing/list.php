@@ -1,7 +1,6 @@
 <?php
 $pageTitle = 'Borrowing Transactions - Multimedia Equipment Watcher';
 require_once '../config/database.php';
-require_once '../config/database.php';
 requireAdmin();
 require_once '../includes/header.php';
 
@@ -60,6 +59,7 @@ $transactions = $stmt->fetchAll();
             <option value="">All Status</option>
             <option value="pending" <?php echo $statusFilter === 'pending' ? 'selected' : ''; ?>>Pending</option>
             <option value="borrowed" <?php echo $statusFilter === 'borrowed' ? 'selected' : ''; ?>>Borrowed</option>
+            <option value="rejected" <?php echo $statusFilter === 'rejected' ? 'selected' : ''; ?>>Rejected</option>
             <option value="returned" <?php echo $statusFilter === 'returned' ? 'selected' : ''; ?>>Returned</option>
             <option value="partially_returned" <?php echo $statusFilter === 'partially_returned' ? 'selected' : ''; ?>>Partially Returned</option>
             <option value="lost" <?php echo $statusFilter === 'lost' ? 'selected' : ''; ?>>Lost</option>
@@ -97,6 +97,8 @@ $transactions = $stmt->fetchAll();
 
                         if ($transaction['status'] === 'pending') {
                             $statusClass = 'bg-blue-100 text-blue-800';
+                        } elseif ($transaction['status'] === 'rejected') {
+                            $statusClass = 'bg-red-100 text-red-800';
                         } elseif ($transaction['status'] === 'returned') {
                             $statusClass = 'bg-green-100 text-green-800';
                         } elseif ($transaction['status'] === 'partially_returned') {
@@ -142,12 +144,11 @@ $transactions = $stmt->fetchAll();
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm">
                                 <?php if (isAdmin()): ?>
-                                    <?php if ($transaction['status'] === 'pending'): ?>
-                                        <a href="edit-status.php?id=<?php echo $transaction['id']; ?>" class="text-blue-600 hover:text-blue-800 font-medium mr-3">Approve</a>
-                                    <?php elseif (in_array($transaction['status'], ['borrowed', 'partially_returned'])): ?>
-                                        <a href="return.php?id=<?php echo $transaction['id']; ?>" class="text-primary hover:text-primary-dark font-medium mr-3">Return</a>
+                                    <?php if (in_array($transaction['status'], ['pending', 'borrowed', 'partially_returned'])): ?>
+                                        <a href="edit-status.php?id=<?php echo $transaction['id']; ?>" class="text-blue-600 hover:text-blue-800 font-medium">Edit</a>
+                                    <?php else: ?>
+                                        <span class="text-gray-400">-</span>
                                     <?php endif; ?>
-                                    <a href="edit-status.php?id=<?php echo $transaction['id']; ?>" class="text-blue-600 hover:text-blue-800 font-medium">Edit</a>
                                 <?php else: ?>
                                     <span class="text-gray-400">-</span>
                                 <?php endif; ?>

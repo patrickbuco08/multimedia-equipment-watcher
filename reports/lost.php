@@ -8,8 +8,22 @@ $pdo = getDBConnection();
 $success = '';
 $error = '';
 
-// Get all equipment
-$equipment = $pdo->query("SELECT id, name FROM equipment ORDER BY name")->fetchAll();
+// Get current logged-in user
+$currentUser = getCurrentUser();
+
+// Get only equipment that the current user has borrowed (status = 'borrowed')
+$equipment = $pdo->prepare("
+    SELECT e.id, e.name, 
+           SUM(bt.quantity - bt.quantity_returned) as remaining_quantity
+    FROM equipment e
+    JOIN borrowing_transactions bt ON e.id = bt.equipment_id
+    WHERE bt.user_id = ? AND bt.status = 'borrowed'
+    GROUP BY e.id, e.name
+    HAVING remaining_quantity > 0
+    ORDER BY e.name
+");
+$equipment->execute([$currentUser['id']]);
+$equipment = $equipment->fetchAll();
 
 // Get admin users for email notification
 $adminUsers = $pdo->query("SELECT email FROM users WHERE role = 'admin'")->fetchAll();
@@ -26,7 +40,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($quantity < 1) {
         $error = 'Quantity must be at least 1';
     } else {
-        try {
+        // Check if quantity exceeds borrowed amount
+        $stmt = $pdo->prepare("
+            SELECT SUM(bt.quantity - bt.quantity_returned) as remaining_quantity
+            FROM borrowing_transactions bt
+            WHERE bt.equipment_id = ? AND bt.user_id = ? AND bt.status = 'borrowed'
+        ");
+        $stmt->execute([$equipment_id, $currentUser['id']]);
+        $borrowedInfo = $stmt->fetch();
+        
+        if (!$borrowedInfo || $borrowedInfo['remaining_quantity'] < $quantity) {
+            $error = 'Cannot report more lost items than you borrowed. You have ' . ($borrowedInfo['remaining_quantity'] ?? 0) . ' items remaining.';
+        } else {
+            try {
             // Handle image upload
             if (isset($_FILES['lost_image']) && $_FILES['lost_image']['error'] === UPLOAD_ERR_OK) {
                 $upload_dir = '../uploads/reports/';
@@ -60,12 +86,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Send email notification to admin
             sendReportNotification($pdo, $report_id, 'lost', $adminUsers);
             
+            // Create notification for admin about lost report
+            $stmt = $pdo->prepare("SELECT e.name as equipment_name, u.name as user_name FROM equipment e JOIN users u ON u.id = ? WHERE e.id = ?");
+            $stmt->execute([$currentUser['id'], $equipment_id]);
+            $info = $stmt->fetch();
+            
+            if ($info) {
+                $notificationMessage = htmlspecialchars($info['user_name']) . " reported loss of " . htmlspecialchars($info['equipment_name']) . " (" . $quantity . " item" . ($quantity > 1 ? "s" : "") . ")";
+                
+                // Get all admin users
+                $adminStmt = $pdo->prepare("SELECT id FROM users WHERE role = 'admin'");
+                $adminStmt->execute();
+                $admins = $adminStmt->fetchAll();
+                
+                foreach ($admins as $admin) {
+                    $notifStmt = $pdo->prepare("INSERT INTO notifications (user_id, message) VALUES (?, ?)");
+                    $notifStmt->execute([$admin['id'], $notificationMessage]);
+                }
+            }
+            
             $success = 'Lost report submitted successfully! Admin has been notified.';
             
             header('Location: /staff-dashboard.php');
             exit;
         } catch (Exception $e) {
             $error = 'Error submitting report: ' . $e->getMessage();
+        }
         }
     }
 }
@@ -147,7 +193,7 @@ function sendReportNotification($pdo, $report_id, $report_type, $adminUsers) {
 <!-- Page Header -->
 <div class="mb-6">
     <h2 class="text-3xl font-bold text-white">Report Item Lost <span class="text-red-600">!</span></h2>
-    <p class="text-gray-600 mt-2">Report lost equipment to update inventory status</p>
+    <p class="text-white mt-2">Report loss of equipment you have borrowed</p>
 </div>
 
 <!-- Form Container -->
@@ -162,7 +208,7 @@ function sendReportNotification($pdo, $report_id, $report_type, $adminUsers) {
     
     <?php if (count($equipment) === 0): ?>
         <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded mb-4">
-            No equipment available. Please add equipment first.
+            You have no borrowed equipment to report. You can only report loss for equipment you have currently borrowed.
         </div>
     <?php endif; ?>
     
@@ -170,11 +216,11 @@ function sendReportNotification($pdo, $report_id, $report_type, $adminUsers) {
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
                 <label for="equipment_id" class="block text-sm font-medium text-gray-700 mb-2">What Item Was Lost *</label>
-                <select id="equipment_id" name="equipment_id" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" <?php echo count($equipment) === 0 ? 'disabled' : ''; ?>>
+                <select id="equipment_id" name="equipment_id" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" <?php echo count($equipment) === 0 ? 'disabled' : ''; ?> onchange="updateMaxQuantity()">
                     <option value="">Select Item</option>
                     <?php foreach ($equipment as $equip): ?>
-                        <option value="<?php echo $equip['id']; ?>" <?php echo ($equipment_id ?? 0) == $equip['id'] ? 'selected' : ''; ?>>
-                            <?php echo htmlspecialchars($equip['name']); ?>
+                        <option value="<?php echo $equip['id']; ?>" data-max-quantity="<?php echo $equip['remaining_quantity']; ?>" <?php echo ($equipment_id ?? 0) == $equip['id'] ? 'selected' : ''; ?>>
+                            <?php echo htmlspecialchars($equip['name']); ?> (<?php echo $equip['remaining_quantity']; ?> borrowed)
                         </option>
                     <?php endforeach; ?>
                 </select>
@@ -188,7 +234,8 @@ function sendReportNotification($pdo, $report_id, $report_type, $adminUsers) {
         
         <div>
             <label for="quantity" class="block text-sm font-medium text-gray-700 mb-2">How Many Items Were Lost *</label>
-            <input type="number" id="quantity" name="quantity" min="1" max="10" required value="<?php echo htmlspecialchars($quantity ?? 1); ?>" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+            <input type="number" id="quantity" name="quantity" min="1" max="1" required value="<?php echo htmlspecialchars($quantity ?? 1); ?>" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+            <p class="text-xs text-gray-500 mt-1">Cannot exceed the number of items you borrowed</p>
         </div>
         
         <div>
@@ -209,5 +256,30 @@ function sendReportNotification($pdo, $report_id, $report_type, $adminUsers) {
         </div>
     </form>
 </div>
+
+<script>
+function updateMaxQuantity() {
+    const equipmentSelect = document.getElementById('equipment_id');
+    const quantityInput = document.getElementById('quantity');
+    
+    const selectedOption = equipmentSelect.options[equipmentSelect.selectedIndex];
+    const maxQuantity = selectedOption.getAttribute('data-max-quantity');
+    
+    if (maxQuantity) {
+        quantityInput.max = maxQuantity;
+        // If current quantity exceeds new max, adjust it
+        if (parseInt(quantityInput.value) > parseInt(maxQuantity)) {
+            quantityInput.value = maxQuantity;
+        }
+    } else {
+        quantityInput.max = 1;
+    }
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    updateMaxQuantity();
+});
+</script>
 
 <?php require_once '../includes/footer.php'; ?>

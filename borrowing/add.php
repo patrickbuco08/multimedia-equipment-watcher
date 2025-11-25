@@ -133,6 +133,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Send email notification to admin
             sendAdminNotification($pdo, $transaction_id, $adminUsers);
             
+            // Create notification for admin about new borrowing request
+            $stmt = $pdo->prepare("SELECT e.name as equipment_name, u.name as user_name FROM equipment e JOIN users u ON u.id = ? WHERE e.id = ?");
+            $stmt->execute([$user_id, $equipment_id]);
+            $info = $stmt->fetch();
+            
+            if ($info) {
+                $notificationMessage = htmlspecialchars($info['user_name']) . " is requesting to borrow " . htmlspecialchars($info['equipment_name']) . " (" . $quantity . " item" . ($quantity > 1 ? "s" : "") . ")";
+                
+                // Get all admin users
+                $adminStmt = $pdo->prepare("SELECT id FROM users WHERE role = 'admin'");
+                $adminStmt->execute();
+                $admins = $adminStmt->fetchAll();
+                
+                foreach ($admins as $admin) {
+                    $notifStmt = $pdo->prepare("INSERT INTO notifications (user_id, transaction_id, message) VALUES (?, ?, ?)");
+                    $notifStmt->execute([$admin['id'], $transaction_id, $notificationMessage]);
+                }
+            }
+            
             $success = 'Borrow transaction created successfully! Admin has been notified.';
             
             // Use JavaScript redirect instead of header()

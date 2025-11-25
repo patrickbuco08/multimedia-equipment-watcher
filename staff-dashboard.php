@@ -66,7 +66,7 @@ foreach ($borrowings as $item) {
     
     <!-- Due Soon -->
     <div class="bg-white rounded-lg shadow-sm p-6 border-l-4 border-yellow-500">
-        <h3 class="text-sm font-medium text-gray-500 uppercase mb-2">Due Soon (3 days)</h3>
+        <h3 class="text-sm font-medium text-gray-500 uppercase mb-2">Due Soon (1 day)</h3>
         <p class="text-4xl font-bold text-gray-800"><?php echo $dueSoon; ?></p>
     </div>
     
@@ -104,13 +104,22 @@ foreach ($borrowings as $item) {
                         if ($item['status'] === 'pending') {
                             $statusClass = 'bg-blue-100 text-blue-800';
                             $statusText = 'Pending Approval';
+                        } elseif ($item['status'] === 'rejected') {
+                            $statusClass = 'bg-red-100 text-red-800';
+                            $statusText = 'Rejected';
                         } elseif ($item['status'] === 'partially_returned') {
                             $statusClass = 'bg-orange-100 text-orange-800';
                             $statusText = 'Partially Returned';
+                        } elseif ($item['status'] === 'returned') {
+                            $statusClass = 'bg-green-100 text-green-800';
+                            $statusText = 'Returned';
+                        } elseif ($item['status'] === 'lost') {
+                            $statusClass = 'bg-purple-100 text-purple-800';
+                            $statusText = 'Lost';
                         } elseif ($item['due_date'] < date('Y-m-d')) {
                             $statusClass = 'bg-red-100 text-red-800';
                             $statusText = 'Overdue';
-                        } elseif ($item['due_date'] <= date('Y-m-d', strtotime('+3 days'))) {
+                        } elseif ($item['due_date'] <= date('Y-m-d', strtotime('+1 days'))) {
                             $statusClass = 'bg-orange-100 text-orange-800';
                             $statusText = 'Due Soon';
                         } elseif ($item['status'] === 'borrowed') {

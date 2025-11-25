@@ -86,7 +86,7 @@ $recentTransactions = $pdo->query("
                             $statusClass = 'bg-yellow-100 text-yellow-800';
                         }
                         ?>
-                        <tr class="hover:bg-gray-50">
+                        <tr class="hover:bg-gray-50 cursor-pointer" onclick="window.location.href='/borrowing/edit-status.php?id=<?php echo $transaction['id']; ?>'">
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><?php echo htmlspecialchars($transaction['equipment_name']); ?></td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><?php echo htmlspecialchars($transaction['borrower_name'] ?? 'Unknown'); ?></td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><?php echo date('M d, Y', strtotime($transaction['date_borrowed'])); ?></td>

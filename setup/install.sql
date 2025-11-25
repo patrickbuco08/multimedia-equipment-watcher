@@ -37,7 +37,7 @@ CREATE TABLE borrowing_transactions (
     date_borrowed DATE NOT NULL,
     due_date DATE NOT NULL,
     date_returned DATE NULL,
-    status ENUM('pending', 'borrowed', 'returned', 'partially_returned', 'lost') NOT NULL DEFAULT 'pending',
+    status ENUM('pending', 'borrowed', 'returned', 'partially_returned', 'lost', 'rejected') NOT NULL DEFAULT 'pending',
     remarks TEXT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (equipment_id) REFERENCES equipment(id) ON DELETE CASCADE,
@@ -100,6 +100,20 @@ INSERT INTO borrowing_transactions (equipment_id, user_id, quantity, quantity_re
 (4, 3, 2, 0, '2025-11-21', '2025-11-28', NULL, 'borrowed', 'Mock borrow - Jane Staff'),
 (5, 2, 7, 0, '2025-11-21', '2025-11-28', NULL, 'borrowed', 'Mock borrow - John Staff'),
 (5, 3, 7, 0, '2025-11-21', '2025-11-28', NULL, 'borrowed', 'Mock borrow - Jane Staff');
+
+-- Notifications table
+CREATE TABLE notifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    transaction_id INT NULL,
+    message VARCHAR(255) NOT NULL,
+    is_read BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (transaction_id) REFERENCES borrowing_transactions(id) ON DELETE CASCADE,
+    INDEX idx_user_unread (user_id, is_read),
+    INDEX idx_user_unread_time (user_id, is_read, created_at)
+);
 
 -- Insert sample email log for overdue notification
 INSERT INTO email_logs (transaction_id, email_to, subject, message, status) VALUES

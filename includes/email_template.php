@@ -20,7 +20,7 @@ function getEmailTemplate($title, $content, $footerText = '') {
                     <tr>
                         <td style="background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); padding: 30px 40px; text-align: center;">
                             <h1 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: bold;">
-                                &#127909; Multimedia Equipment Watcher
+                                Multimedia Equipment Watcher
                             </h1>
                         </td>
                     </tr>
