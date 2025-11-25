@@ -25,6 +25,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user = $stmt->fetch();
 
             if ($user && password_verify($password, $user['password'])) {
+                // Check if account is active
+                if ($user['is_active'] == 0) {
+                    // Set session for pending activation page
+                    $_SESSION['user_id'] = $user['id'];
+                    $_SESSION['user_name'] = $user['name'];
+                    $_SESSION['user_email'] = $user['email'];
+                    $_SESSION['role'] = $user['role'];
+                    
+                    header('Location: pending-activation.php');
+                    exit;
+                }
+                
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_name'] = $user['name'];
                 $_SESSION['user_email'] = $user['email'];
@@ -64,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </script>
 </head>
 
-<body class="bg-gray-50">
+<body class="bg-gray-50" style="background-image: url('images/background.jpg'); background-size: cover; background-position: center; background-attachment: fixed;">
     <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
             <div class="text-center mb-8">

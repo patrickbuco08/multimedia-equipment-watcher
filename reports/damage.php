@@ -1,6 +1,7 @@
 <?php
 $pageTitle = 'Report Damage - Multimedia Equipment Watcher';
 require_once '../includes/header.php';
+requireAdmin();
 
 use PHPMailer\PHPMailer\PHPMailer;
 

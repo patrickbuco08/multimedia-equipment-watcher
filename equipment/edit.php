@@ -1,6 +1,7 @@
 <?php
 $pageTitle = 'Edit Equipment - Multimedia Equipment Watcher';
 require_once '../includes/header.php';
+requireAdmin();
 
 $pdo = getDBConnection();
 $success = '';

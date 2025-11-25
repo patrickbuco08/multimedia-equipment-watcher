@@ -25,7 +25,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         }
     </script>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50" style="background-image: url('/images/background.jpg'); background-size: cover; background-position: center; background-attachment: fixed;">
     <!-- Header - One Line -->
     <header class="bg-white shadow-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -65,4 +65,4 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     </header>
     
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" >

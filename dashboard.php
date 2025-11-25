@@ -29,7 +29,7 @@ $recentTransactions = $pdo->query("
 
 <!-- Page Header -->
 <div class="mb-8">
-    <h2 class="text-3xl font-bold text-gray-800">Dashboard</h2>
+    <h2 class="text-3xl font-bold text-white">Dashboard</h2>
 </div>
 
 <!-- Stats Grid -->
@@ -39,7 +39,7 @@ $recentTransactions = $pdo->query("
         <h3 class="text-sm font-medium text-gray-500 uppercase mb-2">Total Equipment</h3>
         <p class="text-4xl font-bold text-gray-800"><?php echo $totalEquipment; ?></p>
     </div>
-    
+
     <!-- Available -->
     <div class="bg-white rounded-lg shadow-sm p-6 border-l-4 border-green-500">
         <h3 class="text-sm font-medium text-gray-500 uppercase mb-2">Available</h3>

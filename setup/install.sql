@@ -11,6 +11,7 @@ CREATE TABLE users (
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     role ENUM('admin', 'staff') NOT NULL DEFAULT 'staff',
+    is_active TINYINT(1) NOT NULL DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -71,10 +72,10 @@ CREATE TABLE equipment_reports (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Insert initial admin account (password: admin123)
-INSERT INTO users (name, email, password, role) VALUES
-('Admin User', 'admin@oct.edu.ph', '$2y$10$4nno1mmWK/ilCl9lJjVpaOWW2ZHnNMomU6m4zp0f4POinzYUxnhS2', 'admin'),
-('John Staff', 'staff1@oct.edu.ph', '$2y$10$4nno1mmWK/ilCl9lJjVpaOWW2ZHnNMomU6m4zp0f4POinzYUxnhS2', 'staff'),
-('Jane Staff', 'staff2@oct.edu.ph', '$2y$10$4nno1mmWK/ilCl9lJjVpaOWW2ZHnNMomU6m4zp0f4POinzYUxnhS2', 'staff');
+INSERT INTO users (name, email, password, role, is_active) VALUES
+('Admin User', 'admin@oct.edu.ph', '$2y$10$4nno1mmWK/ilCl9lJjVpaOWW2ZHnNMomU6m4zp0f4POinzYUxnhS2', 'admin', 1),
+('John Staff', 'staff1@oct.edu.ph', '$2y$10$4nno1mmWK/ilCl9lJjVpaOWW2ZHnNMomU6m4zp0f4POinzYUxnhS2', 'staff', 1),
+('Jane Staff', 'staff2@oct.edu.ph', '$2y$10$4nno1mmWK/ilCl9lJjVpaOWW2ZHnNMomU6m4zp0f4POinzYUxnhS2', 'staff', 1);
 
 -- Insert sample equipment
 INSERT INTO equipment (name, description, category, total_quantity, available_quantity, status) VALUES

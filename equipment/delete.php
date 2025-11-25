@@ -1,6 +1,6 @@
 <?php
 require_once '../config/database.php';
-requireLogin();
+requireAdmin();
 
 $pdo = getDBConnection();
 $id = $_GET['id'] ?? 0;

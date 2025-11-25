@@ -38,20 +38,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($stmt->fetch()) {
                 $error = 'Email address already registered';
             } else {
-                // Create new staff account
+                // Create new staff account (inactive by default)
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                $stmt = $pdo->prepare("INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, 'staff')");
+                $stmt = $pdo->prepare("INSERT INTO users (name, email, password, role, is_active) VALUES (?, ?, ?, 'staff', 0)");
                 $stmt->execute([$name, $email, $hashedPassword]);
 
-                $_SESSION['user_id'] = $pdo->lastInsertId();
-                $_SESSION['user_name'] = $name;
-                $_SESSION['user_email'] = $email;
-                $_SESSION['role'] = 'staff';
-
-                header('Location: dashboard.php');
-                exit;
-
-                $success = 'Registration successful! You can now login.';
+                $success = 'Registration successful! Your account is pending activation. An administrator will activate your account shortly.';
 
                 // Clear form
                 $name = $email = '';
@@ -83,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     </script>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50" style="background-image: url('images/background.jpg'); background-size: cover; background-position: center; background-attachment: fixed;">
     <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
             <div class="text-center mb-8">
