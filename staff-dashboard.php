@@ -15,7 +15,7 @@ $myBorrowings = $pdo->prepare("
     FROM borrowing_transactions bt
     JOIN equipment e ON bt.equipment_id = e.id
     JOIN users u ON bt.user_id = u.id
-    WHERE bt.status IN ('pending', 'borrowed', 'partially_returned') AND bt.user_id = ?
+    WHERE bt.user_id = ?
     ORDER BY bt.due_date ASC
 ");
 $myBorrowings->execute([$userId]);
@@ -93,6 +93,7 @@ foreach ($borrowings as $item) {
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date Borrowed</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Due Date</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
@@ -104,6 +105,9 @@ foreach ($borrowings as $item) {
                         if ($item['status'] === 'pending') {
                             $statusClass = 'bg-blue-100 text-blue-800';
                             $statusText = 'Pending Approval';
+                        } elseif ($item['status'] === 'cancelled') {
+                            $statusClass = 'bg-gray-100 text-gray-600';
+                            $statusText = 'Cancelled';
                         } elseif ($item['status'] === 'rejected') {
                             $statusClass = 'bg-red-100 text-red-800';
                             $statusText = 'Rejected';
@@ -138,6 +142,17 @@ foreach ($borrowings as $item) {
                                 <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full <?php echo $statusClass; ?>">
                                     <?php echo $statusText; ?>
                                 </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <?php if ($item['status'] === 'pending'): ?>
+                                    <a href="/borrowing/cancel.php?id=<?php echo $item['id']; ?>" 
+                                       onclick="return confirm('Are you sure you want to cancel this borrowing request?')" 
+                                       class="text-red-600 hover:text-red-800 font-medium">
+                                        Cancel
+                                    </a>
+                                <?php else: ?>
+                                    <span class="text-gray-400">-</span>
+                                <?php endif; ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>

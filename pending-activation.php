@@ -29,30 +29,12 @@ if ($user && $user['is_active'] == 1) {
 
 $userName = $_SESSION['user_name'] ?? 'User';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account Pending Activation - Multimedia Equipment Watcher</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#2ecc71',
-                        'primary-dark': '#27ae60',
-                        secondary: '#4b4b4b',
-                    }
-                }
-            }
-        }
-    </script>
-</head>
-<body class="bg-gray-50" style="background-image: url('images/background.jpg'); background-size: cover; background-position: center; background-attachment: fixed;">
-    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
+<?php
+$pageTitle = 'Account Pending Activation - Multimedia Equipment Watcher';
+require_once 'includes/auth-header.php';
+?>
+
+<div class="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
             <div class="text-center">
                 <!-- Pending Icon -->
                 <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-yellow-100 mb-4">
@@ -109,6 +91,5 @@ $userName = $_SESSION['user_name'] ?? 'User';
                 </p>
             </div>
         </div>
-    </div>
-</body>
-</html>
+
+<?php require_once 'includes/auth-footer.php'; ?>

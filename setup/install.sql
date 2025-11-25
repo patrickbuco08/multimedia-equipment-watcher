@@ -37,7 +37,7 @@ CREATE TABLE borrowing_transactions (
     date_borrowed DATE NOT NULL,
     due_date DATE NOT NULL,
     date_returned DATE NULL,
-    status ENUM('pending', 'borrowed', 'returned', 'partially_returned', 'lost', 'rejected') NOT NULL DEFAULT 'pending',
+    status ENUM('pending', 'borrowed', 'returned', 'partially_returned', 'lost', 'rejected', 'cancelled') NOT NULL DEFAULT 'pending',
     remarks TEXT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (equipment_id) REFERENCES equipment(id) ON DELETE CASCADE,

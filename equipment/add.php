@@ -1,7 +1,6 @@
 <?php
 $pageTitle = 'Add Equipment - Multimedia Equipment Watcher';
 require_once '../config/database.php';
-require_once '../config/database.php';
 requireAdmin();
 require_once '../includes/header.php';
 
@@ -79,9 +78,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="status" class="block text-sm font-medium text-gray-700 mb-2">Status</label>
             <select id="status" name="status" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
                 <option value="available" <?php echo ($status ?? 'available') === 'available' ? 'selected' : ''; ?>>Available</option>
-                <option value="borrowed" <?php echo ($status ?? '') === 'borrowed' ? 'selected' : ''; ?>>Borrowed</option>
-                <option value="damaged" <?php echo ($status ?? '') === 'damaged' ? 'selected' : ''; ?>>Damaged</option>
-                <option value="lost" <?php echo ($status ?? '') === 'lost' ? 'selected' : ''; ?>>Lost</option>
             </select>
         </div>
         

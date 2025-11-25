@@ -54,32 +54,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
+<?php
+$pageTitle = 'Register - Multimedia Equipment Watcher';
+require_once 'includes/auth-header.php';
+?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Multimedia Equipment Watcher</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#2ecc71',
-                        'primary-dark': '#27ae60',
-                        secondary: '#4b4b4b',
-                    }
-                }
-            }
-        }
-    </script>
-</head>
-
-<body class="bg-gray-50" style="background-image: url('images/background.jpg'); background-size: cover; background-position: center; background-attachment: fixed;">
-    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
+<div class="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
             <div class="text-center mb-8">
                 <h1 class="text-2xl font-bold text-gray-800">Create Account</h1>
             </div>
@@ -122,7 +102,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
         </div>
-    </div>
-</body>
 
-</html>
+<?php require_once 'includes/auth-footer.php'; ?>

@@ -12,6 +12,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $pageTitle ?? 'Multimedia Equipment Watcher'; ?></title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/assets/css/background.css">
     <script>
         tailwind.config = {
             theme: {
@@ -27,9 +28,9 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     </script>
 </head>
 
-<body class="bg-gray-50" style="background-image: url('/images/background.jpg'); background-size: cover; background-position: center; background-attachment: fixed;">
+<body class="bg-enhanced">
     <!-- Responsive Header -->
-    <header class="bg-white shadow-md sticky top-0 z-50">
+    <header class="bg-white shadow-md sticky top-0 z-50 content-enhanced">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Desktop Header -->
             <div class="hidden lg:flex justify-between items-center py-4">
