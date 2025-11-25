@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Entries - Multimedia Equipment Watcher</title>
+  <link rel="stylesheet" href="/css/logentries.css" />
+</head>
+<body>
+  <!-- NAVIGATION BAR -->
+  <header class="navbar">
+    <div class="logo">
+      <span class="home-icon">🏠</span>
+      <h1>Multimedia<br>Equipment Watcher</h1>
+    </div>
+
+    <nav>
+      <ul>
+        <li><a href="/html/monitor.html">Monitor Inventory</a></li>
+        <li><a href="/html/reportlost.html">Report Item Lost</a></li>
+        <li><a href="/html/reportdamage.html">Report Item Damage</a></li>
+        <li><a href="/html/about.html">About Us</a></li>
+      </ul>
+    </nav>
+
+    <div class="user-actions">
+      <span class="bell-icon">🔔</span>
+      <button id="logoutBtn" class="logout-btn">Logout</button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <section class="entries-box">
+      <h2>LOGIN ENTRIES</h2>
+
+      <div class="entries-table">
+        <div class="row">
+          <div class="cell label">DATE:</div>
+          <div class="cell value" id="entryDate">--/--/--</div>
+        </div>
+        <div class="row">
+          <div class="cell label">TIME OF BORROWING:</div>
+          <div class="cell value" id="entryBorrow">--:--</div>
+        </div>
+        <div class="row">
+          <div class="cell label">TIME OF RETURN:</div>
+          <div class="cell value" id="entryReturn">--:--</div>
+        </div>
+        <div class="row">
+          <div class="cell label">ITEM:</div>
+          <div class="cell value" id="entryItem">---</div>
+        </div>
+        <div class="row">
+          <div class="cell label bold">Quantity of the item:</div>
+          <div class="cell value" id="entryQuantity">--</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/js/logentries.js"></script>
+</body>
+</html>

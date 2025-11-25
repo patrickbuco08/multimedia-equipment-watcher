@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Borrow Request - Multimedia Equipment Watcher</title>
+  <link rel="stylesheet" href="../css/borrowed request.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <!-- ===== NAVBAR ===== -->
+  <header class="navbar">
+    <div class="logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/4225/4225973.png" alt="Logo" class="logo-icon">
+      <h1>Multimedia <span>Equipment Watcher</span></h1>
+    </div>
+
+    <nav>
+      <a href="/html/monitor.html">Monitor Inventory</a>
+      <a href="/html/borrowed request.html" class="active">Borrow Request</a>
+      <div class="dropdown">
+        <button class="dropbtn">Reports ▼</button>
+        <div class="dropdown-content">
+          <a href="/html/reportlost.html">Report Item Lost</a>
+          <a href="/html/reportdamage.html">Report Item Damage</a>
+        </div>
+      </div>
+      <a href="/html/about.html">About Us</a>
+    </nav>
+
+    <div class="icons">
+      <div class="notification-icon">
+        <i class="fa-solid fa-bell"></i>
+        <span class="notif-count">3</span>
+      </div>
+      <div class="profile-icon">
+        <img src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png" alt="Profile">
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="container">
+    <form class="borrow-form" id="borrowForm">
+      <h2>BORROW REQUEST</h2>
+      <div class="form-row">
+        <label>Date Borrow:</label>
+        <input type="date" id="borrowDate" required>
+
+        <label>Time of Borrowing:</label>
+        <input type="time" id="borrowTime" required>
+
+        <label>Time of Return:</label>
+        <input type="time" id="returnTime" required>
+
+        <label>Item:</label>
+        <select id="itemSelect" required>
+          <option value="">Select item</option>
+          <option value="Speaker">Speaker</option>
+          <option value="HDMI Cable">HDMI Cable</option>
+          <option value="microphone">Microphone</option>
+          <option value="projector">Projector</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <label>Quantity of the item:</label>
+        <input type="number" id="quantity" min="1" max="10" required>
+      </div>
+
+      <button type="submit" class="submit-btn">Submit</button>
+
+      <!-- ===== STATUS DISPLAY ===== -->
+      <div id="status"></div>
+    </form>
+  </main>
+
+  <script src="/js/borrowed request.js"></script>
+</body>
+</html>

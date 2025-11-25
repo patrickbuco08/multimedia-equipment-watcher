@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Monitor Inventory - Multimedia Equipment Watcher</title>
+  <link rel="stylesheet" href="/css/monitor.css" />
+  <link rel="stylesheet" href="/css/monitor-modal.css" />
+</head>
+
+<body>
+  <!-- ===== NAVBAR ===== -->
+  <header class="navbar">
+    <div class="nav-left">
+      <svg class="logo" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 3L2 12h3v9h6v-6h2v6h6v-9h3L12 3z" />
+      </svg>
+      <div class="brand">
+        <h1>Multimedia</h1>
+        <p>Equipment Watcher</p>
+      </div>
+    </div>
+
+    <nav class="nav-links">
+      <a href="/html/monitor.html" class="active">Monitor Inventory</a>
+      <a href="/html/borrowed request.html">Borrow Request</a>
+      <div class="dropdown">
+        <button class="dropbtn">Report ▾</button>
+        <div class="dropdown-content">
+          <a href="/html/reportlost.html">Report Item Lost</a>
+          <a href="/html/reportdamage.html">Report Item Damage</a>
+        </div>
+      </div>
+      <a href="/html/about.html">About Us</a>
+    </nav>
+
+    <div class="nav-right">
+      <button class="bell-btn" title="Notifications">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2zm6-6v-5a6 6 0 0 0-12 0v5l-2 2v1h16v-1l-2-2z" />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main>
+    <section class="content">
+      <h2>MONITOR INVENTORY</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>AVAILABLE QTY</th>
+            <th>ITEM NAME</th>
+            <th>UNAVAILABLE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="text" value="5" readonly /></td>
+            <td><input type="text" value="Microphones" readonly /></td>
+            <td><input type="text" value="0" readonly /></td>
+          </tr>
+          <tr>
+            <td><input type="text" value="5" readonly /></td>
+            <td><input type="text" value="Speakers" readonly /></td>
+            <td><input type="text" value="0" readonly /></td>
+          </tr>
+          <tr>
+            <td><input type="text" value="5" readonly /></td>
+            <td><input type="text" value="Projectors" readonly /></td>
+            <td><input type="text" value="0" readonly /></td>
+          </tr>
+          <tr>
+            <td><input type="text" value="5" readonly /></td>
+            <td><input type="text" value="HDMI Cables" readonly /></td>
+            <td><input type="text" value="0" readonly /></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- ===== BORROW MODAL ===== -->
+  <div id="borrowModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h3>Borrow Item</h3>
+      <form id="borrowForm">
+        <label>Item:</label>
+        <input type="text" id="itemName" readonly />
+
+        <label>Quantity:</label>
+        <input type="number" id="quantity" min="1" required />
+
+        <label>Borrower Name:</label>
+        <input type="text" id="borrower" placeholder="Enter your name" required />
+
+        <button type="submit" class="borrow-btn">Confirm Borrow</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/monitor.js"></script>
+</body>
+</html>

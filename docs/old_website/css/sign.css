@@ -1,0 +1,102 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: url("/image/oct (5).jpg") no-repeat center center/cover;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* ✅ Sign-up Box Animation */
+.signup-box {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 40px 30px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  width: 340px;
+  animation: fadeUp 0.8s ease forwards;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.signup-box h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #000;
+}
+
+.signup-box input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 2px solid #000;
+  border-radius: 5px;
+  font-size: 14px;
+  outline: none;
+  transition: box-shadow 0.3s, border-color 0.3s;
+}
+
+/* ✅ Input Hover & Focus Effect */
+.signup-box input:focus {
+  border-color: #22b455;
+  box-shadow: 0 0 8px rgba(34, 180, 85, 0.5);
+}
+
+.signup-box button {
+  width: 100%;
+  padding: 10px;
+  background-color: #005b23;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: transform 0.1s ease, background-color 0.3s;
+}
+
+/* ✅ Button Hover + Press Animation */
+.signup-box button:hover {
+  background-color: #007b2e;
+}
+
+.signup-box button:active {
+  transform: scale(0.97);
+}
+
+.signup-box p {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.signup-box a {
+  color: #22b455;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.signup-box a:hover {
+  text-decoration: underline;
+  color: #1a8c44;
+}

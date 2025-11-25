@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inventory Admin</title>
+  <link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+  <div class="container">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar">
+      <h2>INVENTORY</h2>
+      <ul id="menu">
+        <li class="active" data-section="pending">Pending Requests</li>
+        <li data-section="borrowed">Borrowed Items</li>
+        <li data-section="returned">Returned Items</li>
+        <li data-section="cleared">Cleared</li>
+
+        <!-- NEW MENU -->
+        <li data-section="lost">Lost Items</li>
+        <li data-section="damage">Damaged Items</li>
+      </ul>
+    </aside>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="content">
+
+      <header class="topbar">
+        <h1 id="section-title">Pending Requests</h1>
+        <button class="logout">Logout</button>
+      </header>
+
+      <!-- ===== PENDING ===== -->
+      <section class="section active" id="pending">
+        <h2>Pending Requests</h2>
+        <div id="pending-list"></div>
+      </section>
+
+      <!-- ===== BORROWED ===== -->
+      <section class="section" id="borrowed">
+        <h2>Borrowed Items</h2>
+        <div id="borrowed-list"></div>
+      </section>
+
+      <!-- ===== RETURNED ===== -->
+      <section class="section" id="returned">
+        <h2>Returned Items</h2>
+        <div id="returned-list"></div>
+      </section>
+
+      <!-- ===== CLEARED ===== -->
+      <section class="section" id="cleared">
+        <h2>Cleared Records</h2>
+        <div id="cleared-list"></div>
+      </section>
+
+      <!-- ===== LOST ITEMS (NEW) ===== -->
+      <section class="section" id="lost">
+        <h2>Reported Lost Items</h2>
+        <div id="lost-list"></div>
+      </section>
+
+      <!-- ===== DAMAGED ITEMS (NEW) ===== -->
+      <section class="section" id="damage">
+        <h2>Reported Damaged Items</h2>
+        <div id="damage-list"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us - Multimedia Equipment Watcher</title>
+  <link rel="stylesheet" href="/css/about.css" />
+</head>
+<body>
+  <!-- ===== NAVBAR ===== -->
+  <header class="navbar">
+    <div class="logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/4225/4225973.png" alt="Logo" class="logo-icon" width="40" />
+      <h1>Multimedia <span>Equipment Watcher</span></h1>
+    </div>
+
+    <nav>
+      <ul>
+        <li><a href="/html/monitor.html">Monitor Inventory</a></li>
+        <li><a href="/html/borrowed request.html">Borrow Request</a></li>
+        <li class="dropdown">
+          <button class="dropbtn">Reports ▼</button>
+          <div class="dropdown-content">
+            <a href="/html/reportlost.html">Report Item Lost</a>
+            <a href="/html/reportdamage.html">Report Item Damage</a>
+          </div>
+        </li>
+        <li><a href="/html/about.html" class="active">About Us</a></li>
+      </ul>
+    </nav>
+
+    <div class="user-actions">
+      <i class="bell-icon">🔔</i>
+      <button class="logout-btn" id="logoutBtn">Logout</button>
+    </div>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main>
+    <section class="about-box">
+      <h2>About Us</h2>
+      <p>
+        We provide a simple, efficient, and secure online system for tracking all borrowed
+        items, from extension cords to sound systems. Our intuitive interface allows
+        administrators to easily:
+      </p>
+
+      <div class="features">
+        <p><strong>Record Log:</strong> Log every borrowed item, including the borrower's name, item borrowed, and date/time.</p>
+        <p><strong>Monitor Inventory:</strong> Always know what’s out, when it’s due back, and who has it.</p>
+        <p><strong>Track Damage:</strong> Document damage upon return and assign responsibility.</p>
+        <p><strong>Generate Reports:</strong> Access detailed reports to monitor borrowing trends and optimize resources.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="/js/about.js"></script>
+</body>
+</html>

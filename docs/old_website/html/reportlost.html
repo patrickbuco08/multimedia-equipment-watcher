@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Report Item Lost - Multimedia Equipment Watcher</title>
+
+  <!-- MAIN CSS -->
+  <link rel="stylesheet" href="/css/reportlost.css" />
+
+  <!-- ICONS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+
+  <!-- ======================================================
+       NAVBAR
+  ====================================================== -->
+  <header class="navbar">
+
+    <!-- LEFT LOGO -->
+    <div class="logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/4225/4225973.png" alt="Logo">
+      <h1>Multimedia <span>Equipment Watcher</span></h1>
+    </div>
+
+    <!-- CENTER NAVIGATION -->
+    <nav>
+      <a href="/html/monitor.html">Monitor Inventory</a>
+
+      <a href="/html/borrowed request.html">Borrow Request</a>
+
+      <div class="dropdown">
+        <button class="dropbtn active">Report</button>
+        <div class="dropdown-content">
+          <a href="/html/reportlost.html" class="active">Report Item Lost</a>
+          <a href="/html/reportdamage.html">Report Item Damage</a>
+        </div>
+      </div>
+
+      <a href="/html/about.html">About Us</a>
+    </nav>
+
+    <!-- RIGHT ICON -->
+    <div class="profile-icon">
+      <img src="https://cdn-icons-png.flaticon.com/512/1827/1827272.png" alt="Notifications">
+    </div>
+  </header>
+
+  <!-- ======================================================
+       MAIN CONTENT
+  ====================================================== -->
+  <main>
+    <div class="report-box">
+
+      <h2>REPORT ITEM LOST <span class="red">!</span></h2>
+
+      <form id="lostForm">
+
+        <!-- ROW 1 -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="itemName">What Item Was Lost:</label>
+            <select id="itemName" required>
+              <option value="">Select Item</option>
+              <option value="Camera">Camera</option>
+              <option value="Tripod">Tripod</option>
+              <option value="Microphone">Microphone</option>
+              <option value="Projector">Projector</option>
+              <option value="Laptop">Laptop</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="lostDate">The possible date it was lost:</label>
+            <input type="date" id="lostDate" required>
+          </div>
+        </div>
+
+        <!-- ROW 2 -->
+        <div class="form-group">
+          <label for="quantity">How Many Items Were Lost:</label>
+          <input type="number" id="quantity" min="1" max="10" required>
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div class="form-group">
+          <label for="description">Detailed Description of the Lost Item:</label>
+          <textarea id="description" maxlength="500" placeholder="(Max 500 Characters)" required></textarea>
+        </div>
+
+        <!-- ======================================================
+             IMAGE UPLOAD
+        ====================================================== -->
+        <div class="form-group">
+          <label>Upload Image (Optional)</label>
+
+          <!-- Clickable upload box -->
+          <div class="image-upload-container">
+            <div class="image-box" id="imageBox">
+              <i class="fa-solid fa-image"></i>
+              <p>Select Image</p>
+            </div>
+            <input type="file" id="lostImage" accept="image/*" hidden>
+          </div>
+
+          <!-- Preview -->
+          <div class="image-preview" id="imagePreview">
+            <span>No image selected</span>
+          </div>
+        </div>
+
+        <!-- SUBMIT BUTTON -->
+        <button type="submit">Submit</button>
+
+      </form>
+
+    </div>
+  </main>
+
+  <!-- CONNECTED EXTERNAL JAVASCRIPT -->
+  <script src="/js/repostlost.js"></script>
+
+</body>
+</html>

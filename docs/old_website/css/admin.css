@@ -1,0 +1,242 @@
+/* ==========================================================
+   ADMIN PANEL CSS – FINAL CLEAN VERSION
+   Image Size: 200px (fixed)
+========================================================== */
+
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ===== BODY ===== */
+body {
+  color: #fff;
+  display: flex;
+  height: 100vh;
+  background: url("/image/oct (3).jpg") no-repeat center center fixed;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+  display: flex;
+  width: 100%;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  background: rgba(20, 83, 45, 0.95);
+  color: white;
+  width: 230px;
+  padding: 25px 18px;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(4px);
+}
+
+.sidebar h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar li {
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+.sidebar li:hover,
+.sidebar li.active {
+  background: #1e7a46;
+}
+
+/* ===== MAIN CONTENT ===== */
+.content {
+  flex: 1;
+  padding: 25px;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 10px;
+  margin: 20px;
+  color: #fff;
+}
+
+/* ===== TOPBAR ===== */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.topbar h1 {
+  font-size: 22px;
+}
+
+.logout {
+  background: #b22222;
+  color: white;
+  border: none;
+  padding: 7px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.3s;
+}
+
+.logout:hover {
+  background: #8b0000;
+}
+
+/* ===== REQUEST + REPORT BOXES ===== */
+.request-box,
+.report-box {
+  background: rgba(0, 0, 0, 0.55);
+  padding: 18px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+  font-size: 14px;
+}
+
+.request-box p,
+.report-box p {
+  margin-bottom: 6px;
+}
+
+/* ===== REPORT IMAGE (200px FIXED) ===== */
+.report-img {
+  width: 200px;
+  height: auto;
+  display: block;
+  margin: 12px auto;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+}
+
+/* ===== STATUS LABELS ===== */
+.status-label {
+  margin-top: 10px;
+  font-weight: 600;
+  text-align: center;
+  padding: 6px 0;
+  border-radius: 6px;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+.status-label.approved {
+  color: #4caf50;
+}
+
+.status-label.declined {
+  color: #e53935;
+}
+
+.status-label.returned {
+  color: #03a9f4;
+}
+
+/* ===== ACTION BUTTONS ===== */
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.actions button {
+  border: none;
+  padding: 7px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  color: white;
+  transition: 0.2s;
+}
+
+.approve-btn {
+  background: #4caf50;
+}
+.approve-btn:hover {
+  background: #3e8e41;
+}
+
+.decline-btn {
+  background: #e53935;
+}
+.decline-btn:hover {
+  background: #c62828;
+}
+
+.return-btn {
+  background: #ff9800;
+}
+.return-btn:hover {
+  background: #f57c00;
+}
+
+.delete-btn {
+  background: #9c27b0;
+}
+.delete-btn:hover {
+  background: #7b1fa2;
+}
+
+/* ===== SECTIONS ===== */
+.section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .content {
+    margin: 10px;
+    padding: 20px;
+  }
+
+  .sidebar li {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .report-img {
+    width: 160px; /* Mobile-friendly size */
+  }
+}
+
+/* ===== ACTIVE MENU COLOR ===== */
+#menu li.active {
+  background: #333;
+  color: #fff;
+}

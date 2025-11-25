@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Report Damage Item</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/reportdamage.css" />
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="navbar">
+    <div class="logo">
+      <span class="home-icon">🏠</span>
+      <h1>Multimedia<br>Equipment Watcher</h1>
+    </div>
+
+    <nav>
+      <ul>
+        <li><a href="/html/monitor.html">Monitor Inventory</a></li>
+        <li><a href="/html/borrowed request.html">Borrow Request</a></li>
+
+        <li class="dropdown">
+          <button class="dropbtn">Reports ▼</button>
+          <div class="dropdown-content">
+            <a href="/html/reportdamage.html" class="active">Report Item Damage</a>
+            <a href="/html/reportlost.html">Report Item Lost</a>
+          </div>
+        </li>
+
+        <li><a href="/html/about.html">About Us</a></li>
+      </ul>
+    </nav>
+
+    <div class="bell-icon">🔔</div>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main>
+    <section class="damage-box">
+      <h2>REPORT DAMAGE ITEM <span class="alert-icon">!</span></h2>
+
+      <form id="damageForm">
+
+        <!-- ROW 1 -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="item">What Item Was Damaged:</label>
+            <select id="item" required>
+              <option value="" disabled selected>Select an item</option>
+              <option value="Camera">Camera</option>
+              <option value="Tripod">Tripod</option>
+              <option value="Light">Light</option>
+              <option value="Microphone">Microphone</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="date">Possible Date Damaged:</label>
+            <input type="date" id="date" required>
+          </div>
+        </div>
+
+        <!-- QUANTITY -->
+        <div class="form-group">
+          <label for="quantity">Number of Items Damaged:</label>
+          <input type="number" id="quantity" min="1" required>
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div class="form-group">
+          <label for="description">Detailed Description:</label>
+          <textarea id="description" maxlength="500"
+            placeholder="(Max 500 Characters)" required></textarea>
+        </div>
+
+        <!-- IMAGE UPLOAD -->
+        <div class="form-group">
+          <label>Upload Image (Optional)</label>
+
+          <div class="image-upload-container">
+            <div class="image-box" id="imageBox">
+              <i class="fa-solid fa-image"></i>
+              <p>Select Image</p>
+            </div>
+
+            <!-- Hidden input (no chosen-file text) -->
+            <input type="file" id="damagePhoto" accept="image/*" style="display:none;">
+          </div>
+
+          <div class="image-preview" id="imagePreview"></div>
+        </div>
+
+        <button type="submit" id="submitBtn">Submit</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- CONNECTED REPORT DAMAGE JS -->
+  <script src="/js/reportdamage.js"></script>
+
+</body>
+</html>

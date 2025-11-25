@@ -1,0 +1,173 @@
+/* ==========================================================
+   RESET & BASE
+========================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Poppins", Arial, sans-serif;
+  background: url("/image/oct (5).jpg") no-repeat center center/cover;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* ==========================================================
+   LOGIN BOX
+========================================================== */
+.login-box {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 40px 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  width: 320px;
+  transform: translateY(30px);
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+}
+
+/* Heading */
+.login-box h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #004d1a;
+}
+
+/* ==========================================================
+   INPUTS
+========================================================== */
+.login-box input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 2px solid #004d1a;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: 0.3s ease;
+}
+
+.login-box input:focus {
+  border-color: #00a651;
+  box-shadow: 0 0 8px rgba(0, 166, 81, 0.4);
+}
+
+/* ==========================================================
+   BUTTON
+========================================================== */
+.login-box button {
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(90deg, #005b23, #22b455);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 91, 35, 0.3);
+}
+
+.login-box button:hover {
+  background: linear-gradient(90deg, #22b455, #007b2e);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 91, 35, 0.4);
+}
+
+/* ==========================================================
+   TEXT & LINKS
+========================================================== */
+.login-box p {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #333;
+  animation: fadeIn 1.2s ease;
+}
+
+.login-box a {
+  color: #22b455;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.login-box a:hover {
+  text-decoration: underline;
+  color: #007b2e;
+}
+
+/* ==========================================================
+   ERROR MESSAGE BELOW LOGIN BUTTON
+========================================================== */
+.error-text {
+  color: #d93025;
+  font-size: 13px;
+  margin-top: 8px;
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+/* ==========================================================
+   POP-UP ERROR MESSAGE
+========================================================== */
+.error-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.97);
+  color: #b91c1c;
+  border: 2px solid #b91c1c;
+  border-radius: 10px;
+  padding: 20px 30px;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  z-index: 10000;
+  animation: popIn 0.3s ease;
+}
+
+/* ==========================================================
+   ANIMATIONS
+========================================================== */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes popIn {
+  0% {
+    transform: translate(-50%, -60%) scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
