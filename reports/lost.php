@@ -1,7 +1,6 @@
 <?php
 $pageTitle = 'Report Lost Item - Multimedia Equipment Watcher';
 require_once '../includes/header.php';
-requireAdmin();
 
 use PHPMailer\PHPMailer\PHPMailer;
 
@@ -147,12 +146,12 @@ function sendReportNotification($pdo, $report_id, $report_type, $adminUsers) {
 
 <!-- Page Header -->
 <div class="mb-6">
-    <h2 class="text-3xl font-bold text-gray-800">Report Item Lost <span class="text-red-600">!</span></h2>
+    <h2 class="text-3xl font-bold text-white">Report Item Lost <span class="text-red-600">!</span></h2>
     <p class="text-gray-600 mt-2">Report lost equipment to update inventory status</p>
 </div>
 
 <!-- Form Container -->
-<div class="max-w-3xl bg-white rounded-lg shadow-sm p-6">
+<div class="max-w-3xl mx-auto bg-white rounded-lg shadow-sm p-6">
     <?php if ($success): ?>
         <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4"><?php echo htmlspecialchars($success); ?></div>
     <?php endif; ?>

@@ -1,9 +1,8 @@
 <?php
 $pageTitle = 'Equipment List - Multimedia Equipment Watcher';
-require_once '../includes/header.php';
-
-// Admin only
+require_once '../config/database.php';
 requireAdmin();
+require_once '../includes/header.php';
 
 $pdo = getDBConnection();
 
@@ -36,7 +35,7 @@ $equipment = $stmt->fetchAll();
 
 <!-- Page Header -->
 <div class="flex justify-between items-center mb-6">
-    <h2 class="text-3xl font-bold text-gray-800">Equipment Management</h2>
+    <h2 class="text-3xl font-bold text-white">Equipment Management</h2>
     <a href="add.php" class="px-4 py-2 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg transition">+ Add Equipment</a>
 </div>
 

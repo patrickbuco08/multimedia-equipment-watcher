@@ -2,6 +2,9 @@
 // Load environment variables
 require_once __DIR__ . '/env.php';
 
+// Set timezone to Asia/Manila (UTC+8)
+date_default_timezone_set('Asia/Manila');
+
 // Database configuration from environment variables
 define('DB_HOST', env('DB_HOST', '127.0.0.1'));
 define('DB_PORT', env('DB_PORT', '3306'));
@@ -53,7 +56,7 @@ function requireLogin() {
 function requireAdmin() {
     requireLogin();
     if (!isAdmin()) {
-        header('Location: /dashboard.php');
+        header('Location: /staff-dashboard.php');
         exit;
     }
 }

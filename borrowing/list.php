@@ -1,5 +1,8 @@
 <?php
 $pageTitle = 'Borrowing Transactions - Multimedia Equipment Watcher';
+require_once '../config/database.php';
+require_once '../config/database.php';
+requireAdmin();
 require_once '../includes/header.php';
 
 $pdo = getDBConnection();
@@ -41,7 +44,7 @@ $transactions = $stmt->fetchAll();
 
 <!-- Page Header -->
 <div class="flex justify-between items-center mb-6">
-    <h2 class="text-3xl font-bold text-gray-800">Borrowing Transactions</h2>
+    <h2 class="text-3xl font-bold text-white">Borrowing Transactions</h2>
     <a href="add.php" class="px-4 py-2 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg transition">+ New Borrow</a>
 </div>
 

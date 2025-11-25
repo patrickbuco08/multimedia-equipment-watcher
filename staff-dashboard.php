@@ -43,8 +43,8 @@ foreach ($borrowings as $item) {
 
 <!-- Page Header -->
 <div class="mb-8">
-    <h2 class="text-3xl font-bold text-gray-800">My Dashboard</h2>
-    <p class="text-gray-600 mt-2">Welcome, <?php echo htmlspecialchars($currentUser['name']); ?>!</p>
+    <h2 class="text-3xl font-bold text-white">My Dashboard</h2>
+    <p class="text-gray-100 mt-2">Welcome, <?php echo htmlspecialchars($currentUser['name']); ?>!</p>
 </div>
 <div class="mb-8">
     <a href="borrowing/add.php" class="px-4 py-2 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg transition">+ New Borrow</a>

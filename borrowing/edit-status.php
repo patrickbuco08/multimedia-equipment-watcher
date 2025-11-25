@@ -1,7 +1,9 @@
 <?php
 $pageTitle = 'Edit Transaction Status - Multimedia Equipment Watcher';
-require_once '../includes/header.php';
+require_once '../config/database.php';
+require_once '../config/database.php';
 requireAdmin();
+require_once '../includes/header.php';
 
 $pdo = getDBConnection();
 $success = '';
@@ -114,12 +116,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!-- Page Header -->
 <div class="flex justify-between items-center mb-6">
-    <h2 class="text-3xl font-bold text-gray-800">Edit Transaction Status</h2>
+    <h2 class="text-3xl font-bold text-white">Edit Transaction Status</h2>
     <a href="list.php" class="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white font-semibold rounded-lg transition">← Back to List</a>
 </div>
 
 <!-- Form Container -->
-<div class="max-w-3xl bg-white rounded-lg shadow-sm p-6">
+<div class="max-w-3xl mx-auto bg-white rounded-lg shadow-sm p-6">
     <?php if ($success): ?>
         <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4"><?php echo htmlspecialchars($success); ?></div>
     <?php endif; ?>

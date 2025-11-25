@@ -1,7 +1,8 @@
 <?php
 $pageTitle = 'Overdue Items - Multimedia Equipment Watcher';
-require_once '../includes/header.php';
+require_once '../config/database.php';
 requireAdmin();
+require_once '../includes/header.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 
@@ -98,7 +99,7 @@ $overdueTransactions = $stmt->fetchAll();
 
 <!-- Page Header -->
 <div class="flex justify-between items-center mb-6">
-    <h2 class="text-3xl font-bold text-gray-800">Overdue Items</h2>
+    <h2 class="text-3xl font-bold text-white">Overdue Items</h2>
 </div>
 
 <!-- Content Box -->

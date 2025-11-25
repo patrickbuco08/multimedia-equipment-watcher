@@ -15,6 +15,7 @@ require_once 'config/database.php';
 
 // Security: Require login
 requireLogin();
+require_once '../config/database.php';
 requireAdmin(); // Only admins can backup
 
 $backupDir = __DIR__ . '/backups/';

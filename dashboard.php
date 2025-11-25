@@ -1,12 +1,8 @@
 <?php
 $pageTitle = 'Dashboard - Multimedia Equipment Watcher';
+require_once './config/database.php';
+requireAdmin();
 require_once 'includes/header.php';
-
-// Redirect staff to their dashboard
-if (!isAdmin()) {
-    header('Location: staff-dashboard.php');
-    exit;
-}
 
 $pdo = getDBConnection();
 

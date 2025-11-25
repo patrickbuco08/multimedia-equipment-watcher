@@ -1,7 +1,8 @@
 <?php
 $pageTitle = 'Staff Management - Multimedia Equipment Watcher';
-require_once '../includes/header.php';
+require_once '../config/database.php';
 requireAdmin();
+require_once '../includes/header.php';
 
 $pdo = getDBConnection();
 
@@ -11,7 +12,7 @@ $users = $pdo->query("SELECT * FROM users ORDER BY created_at DESC")->fetchAll()
 
 <!-- Page Header -->
 <div class="flex justify-between items-center mb-6">
-    <h2 class="text-3xl font-bold text-gray-800">Staff Management</h2>
+    <h2 class="text-3xl font-bold text-white">Staff Management</h2>
     <a href="add.php" class="px-4 py-2 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg transition">+ Add Staff</a>
 </div>
 

@@ -2,6 +2,7 @@
 require_once '../config/database.php';
 
 startSession();
+require_once '../config/database.php';
 requireAdmin();
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {

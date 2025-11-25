@@ -17,7 +17,13 @@ $user = $stmt->fetch();
 
 // If account is already active, redirect to dashboard
 if ($user && $user['is_active'] == 1) {
-    header('Location: dashboard.php');
+
+    if(isAdmin()) {
+        header('Location: dashboard.php');
+        exit;
+    }
+
+    header('Location: staff-dashboard.php');
     exit;
 }
 

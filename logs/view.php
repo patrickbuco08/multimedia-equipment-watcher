@@ -1,7 +1,8 @@
 <?php
-$pageTitle = 'Email Logs - Multimedia Equipment Watcher';
-require_once '../includes/header.php';
+$pageTitle = 'Email Notification Logs - Multimedia Equipment Watcher';
+require_once '../config/database.php';
 requireAdmin();
+require_once '../includes/header.php';
 
 $pdo = getDBConnection();
 
@@ -17,7 +18,7 @@ $logs = $pdo->query("
 
 <!-- Page Header -->
 <div class="mb-6">
-    <h2 class="text-3xl font-bold text-gray-800">Email Notification Logs</h2>
+    <h2 class="text-3xl font-bold text-white">Email Notification Logs</h2>
 </div>
 
 <!-- Content Box -->

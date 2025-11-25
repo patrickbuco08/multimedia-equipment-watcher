@@ -1,7 +1,8 @@
 <?php
-$pageTitle = 'Equipment Reports - Multimedia Equipment Watcher';
-require_once '../includes/header.php';
+$pageTitle = 'Reports List - Multimedia Equipment Watcher';
+require_once '../config/database.php';
 requireAdmin();
+require_once '../includes/header.php';
 
 $pdo = getDBConnection();
 
@@ -20,7 +21,7 @@ $reports = $pdo->query("
 
 <!-- Page Header -->
 <div class="flex justify-between items-center mb-6">
-    <h2 class="text-3xl font-bold text-gray-800">Equipment Reports</h2>
+    <h2 class="text-3xl font-bold text-white">Equipment Reports</h2>
 </div>
 
 <!-- Content Box -->
