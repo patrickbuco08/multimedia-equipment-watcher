@@ -79,25 +79,31 @@ INSERT INTO users (name, email, password, role, is_active) VALUES
 
 -- Insert sample equipment
 INSERT INTO equipment (name, description, category, total_quantity, available_quantity, status) VALUES
-('Canon EOS R6', 'Professional mirrorless camera with 4K video recording', 'Camera', 12, 12, 'available'),
-('Sony A7 III', 'Full-frame mirrorless camera', 'Camera', 8, 5, 'available'),
-('Rode VideoMic Pro', 'Professional shotgun microphone', 'Audio', 15, 15, 'available'),
-('Manfrotto MT055 Tripod', 'Professional aluminum tripod', 'Support', 10, 7, 'available'),
-('Godox SL-60W', 'LED video light 60W', 'Lighting', 20, 20, 'available');
+('JBL EON 615', '15" Powered PA Speaker with Bluetooth', 'Audio', 6, 6, 'available'),
+('Power Extension Cord', '10m Heavy-duty extension cord', 'Accessories', 15, 15, 'available'),
+('Epson EB-W52', 'WXGA 3LCD Projector 3600 lumens', 'Projection', 4, 4, 'available'),
+('Shure SM58', 'Vocal Microphone with Stand Adapter', 'Audio', 10, 8, 'available'),
+('Samsung 65" QLED TV', '4K UHD Smart TV with HDR', 'Display', 3, 3, 'available'),
+('K&M Microphone Stand', 'Adjustable boom microphone stand', 'Support', 12, 10, 'available'),
+('Roll-up Standee Display', 'Portable retractable banner stand', 'Display', 5, 5, 'available'),
+('Manfrotto Tripod Kit', 'Professional camera tripod with fluid head', 'Support', 8, 6, 'available'),
+('LED Par Can Light', 'RGBW LED Par Light with remote', 'Lighting', 10, 10, 'available'),
+('Universal TV Remote', 'Programmable remote control for all TV brands', 'Accessories', 8, 8, 'available'),
+('HDMI Cable 5m', 'High-speed HDMI cable with Ethernet', 'Cables', 20, 18, 'available'),
+('Neewer Softbox Kit', 'Professional 24"x24" softbox lighting kit', 'Lighting', 6, 6, 'available');
 
 -- Insert sample borrowing transactions (including various statuses)
 INSERT INTO borrowing_transactions (equipment_id, user_id, quantity, quantity_returned, date_borrowed, due_date, date_returned, status, remarks) VALUES
-(2, 2, 2, 0, '2025-11-10', '2025-11-20', NULL, 'borrowed', 'For documentary project'),
-(4, 3, 3, 0, '2025-11-15', '2025-11-22', NULL, 'borrowed', 'For video shoot'),
-(2, 2, 1, 1, '2025-11-01', '2025-11-10', '2025-11-09', 'returned', 'Returned in good condition'),
-(1, 2, 4, 0, '2025-11-21', '2025-11-28', NULL, 'pending', 'Mock borrow - John Staff - Pending approval'),
-(1, 3, 4, 0, '2025-11-21', '2025-11-28', NULL, 'borrowed', 'Mock borrow - Jane Staff'),
-(2, 2, 2, 0, '2025-11-21', '2025-11-28', NULL, 'pending', 'Mock borrow - John Staff - Pending approval'),
-(2, 3, 2, 1, '2025-11-21', '2025-11-28', NULL, 'partially_returned', 'Mock borrow - Jane Staff - 1 of 2 returned'),
-(3, 2, 5, 0, '2025-11-21', '2025-11-28', NULL, 'borrowed', 'Mock borrow - John Staff'),
-(3, 3, 5, 0, '2025-11-21', '2025-11-28', NULL, 'borrowed', 'Mock borrow - Jane Staff'),
-(4, 2, 4, 0, '2025-11-21', '2025-11-28', NULL, 'borrowed', 'Mock borrow - John Staff'),
-(4, 3, 2, 0, '2025-11-21', '2025-11-28', NULL, 'borrowed', 'Mock borrow - Jane Staff'),
+(1, 2, 2, 0, '2025-11-10', '2025-11-20', NULL, 'borrowed', 'For school event - Audio setup'),
+(3, 3, 1, 0, '2025-11-15', '2025-11-22', NULL, 'borrowed', 'For classroom presentation'),
+(4, 2, 2, 2, '2025-11-01', '2025-11-10', '2025-11-09', 'returned', 'For seminar - Returned in good condition'),
+(2, 2, 1, 0, '2025-11-21', '2025-11-28', NULL, 'pending', 'For school fair - Pending approval'),
+(5, 3, 1, 0, '2025-11-21', '2025-11-28', NULL, 'borrowed', 'For department meeting'),
+(7, 2, 2, 0, '2025-11-21', '2025-11-28', NULL, 'pending', 'For graduation ceremony - Pending approval'),
+(8, 3, 1, 1, '2025-11-21', '2025-11-28', NULL, 'partially_returned', 'For photo shoot - 1 of 2 returned'),
+(6, 2, 3, 0, '2025-11-21', '2025-11-28', NULL, 'borrowed', 'For music club practice'),
+(9, 3, 2, 0, '2025-11-21', '2025-11-28', NULL, 'borrowed', 'For stage play lighting'),
+(10, 2, 1, 0, '2025-11-21', '2025-11-28', NULL, 'borrowed', 'For conference room setup'),
 (5, 2, 7, 0, '2025-11-21', '2025-11-28', NULL, 'borrowed', 'Mock borrow - John Staff'),
 (5, 3, 7, 0, '2025-11-21', '2025-11-28', NULL, 'borrowed', 'Mock borrow - Jane Staff');
 
