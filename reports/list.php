@@ -6,8 +6,11 @@ require_once '../includes/header.php';
 
 $pdo = getDBConnection();
 
-// Get all reports with equipment and user info
-$reports = $pdo->query("
+// Get filter parameters
+$reportType = $_GET['type'] ?? '';
+
+// Build the base query
+$query = "
     SELECT 
         er.*,
         e.name as equipment_name,
@@ -15,13 +18,42 @@ $reports = $pdo->query("
     FROM equipment_reports er
     JOIN equipment e ON er.equipment_id = e.id
     JOIN users u ON er.reported_by = u.id
-    ORDER BY er.created_at DESC
-")->fetchAll();
+";
+
+// Add type filter if specified
+$params = [];
+if (!empty($reportType)) {
+    $query .= " WHERE er.report_type = ?";
+    $params[] = $reportType;
+}
+
+$query .= " ORDER BY er.created_at DESC";
+
+// Execute query
+$stmt = $pdo->prepare($query);
+$stmt->execute($params);
+$reports = $stmt->fetchAll();
+
+// Get distinct report types for filter dropdown
+$types = $pdo->query("SELECT DISTINCT report_type FROM equipment_reports ORDER BY report_type")->fetchAll(PDO::FETCH_COLUMN);
 ?>
 
 <!-- Page Header -->
 <div class="flex justify-between items-center mb-6">
     <h2 class="text-3xl font-bold text-white">Equipment Reports</h2>
+    <form method="GET" class="flex items-center gap-3">
+        <select name="type" onchange="this.form.submit()" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+            <option value="">All Types</option>
+            <?php foreach ($types as $type): ?>
+                <option value="<?php echo $type; ?>" <?php echo $reportType === $type ? 'selected' : ''; ?>>
+                    <?php echo ucfirst($type); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+        <?php if (!empty($reportType)): ?>
+            <a href="list.php" class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white font-medium rounded-lg transition">Clear</a>
+        <?php endif; ?>
+    </form>
 </div>
 
 <!-- Content Box -->
