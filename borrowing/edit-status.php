@@ -289,6 +289,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <span class="text-gray-600">Current Status:</span>
                 <span class="font-medium text-gray-900 ml-2"><?php echo ucfirst(str_replace('_', ' ', $transaction['status'])); ?></span>
             </div>
+            <?php if (!empty($transaction['remarks'])): ?>
+            <div class="md:col-span-2">
+                <span class="text-gray-600">Remarks:</span>
+                <span class="font-medium text-gray-900 ml-2"><?php echo htmlspecialchars($transaction['remarks']); ?></span>
+            </div>
+            <?php endif; ?>
         </div>
     </div>
     
