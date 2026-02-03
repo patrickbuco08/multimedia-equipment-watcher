@@ -37,7 +37,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                 <!-- Left: Logo + Navigation -->
                 <div class="flex items-center space-x-6">
                     <div class="flex items-center space-x-2">
-                        <h1 class="text-lg font-bold text-gray-800">Multimedia Equipment Watcher</h1>
+                        <h1 class="text-lg font-bold text-gray-800"><a href="/index.php">Multimedia Equipment Watcher</a></h1>
                     </div>
                     <nav class="flex space-x-1">
                         <?php if (isAdmin()): ?>

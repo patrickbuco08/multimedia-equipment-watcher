@@ -34,7 +34,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             <div class="flex justify-between items-center py-4">
                 <!-- Logo -->
                 <div class="flex items-center space-x-2">
-                    <h1 class="text-xl font-bold text-gray-800">Multimedia Equipment Watcher</h1>
+                    <h1 class="text-xl font-bold text-gray-800"><a href="/index.php">Multimedia Equipment Watcher</a></h1>
                 </div>
                 
                 <!-- Public Navigation -->
